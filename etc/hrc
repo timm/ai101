@@ -32,8 +32,9 @@ ok() {
 
 here() { cd $1; basename `pwd`; }
 
-PROMPT_COMMAND='echo -ne "🌙 $(git branch 2>/dev/null | grep '^*' | colrm 1 2):";PS1="$(here ..)/$(here .):\!\e[m ▶ "'
+PROMPT_COMMAND='echo -ne "❌ $(git branch 2>/dev/null | grep '^*' | colrm 1 2):";PS1="$(here ..)/$(here .):\!\e[m ▶ "'
 
+hi() {
 tput bold; tput setaf 5
 cat<<'EOF'
             _                        _             
@@ -49,4 +50,33 @@ EOF
 tput bold; tput setaf 241
 echo "Short cuts:"
 alias | sed 's/alias /  /'
+echo ""
 tput sgr0
+}
+
+mytmux() {
+  session=$RANDOM
+  Tmux=$(which tmux)
+  $Tmux start-server
+  sleep 1
+  $Tmux new-session -d -s $session  
+  $Tmux send-keys "sleep 0.5; bash $Etc/etc/h"   C-m
+
+  $Tmux splitw -h -p 20
+  $Tmux selectp -t 1
+  $Tmux send-keys "sleep 0.5; bash $Etc/etc/h"   C-m
+
+  $Tmux splitw -l 3
+  $Tmux selectp -t 2
+  $Tmux send-keys "htop "   C-m
+
+  $Tmux selectp -t 0
+
+  $Tmux attach-session -t $session
+}
+
+if [ -z "$TMUX" ]; then
+  mytmux
+else
+  clear; hi
+fi

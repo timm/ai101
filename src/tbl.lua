@@ -16,10 +16,9 @@ function Tbl:_init(rows)
 
 function Tbl:add(t)
   t = t.cells and t.cells or t
-  if #self.all>0 then
-    self.rows[#self.rows + 1] = self:newRow(t)
-  else
-    t.all = self:newCols(t) end end
+  if   #self.all>0 
+  then self.rows[#self.rows+1] = self:newRow(t)
+  else t.all = self:newCols(t) end end
 
 function Tbl:newRow(t) 
   for _, col in pairs(self.all) do col:add(t[col.at]) end
@@ -33,9 +32,11 @@ function Tbl:newCols(t,  what,new)
     new  = what(at,txt)
     all[#all+1] = new
     if not txt:find("?") then
-      if txt:find("!") then self.klass = new end 
-      if   txt:match("[<>!]") then 
-           self.y[#self.y+1] = new 
+      if   txt:find("!") 
+      then self.klass = new 
+      end 
+      if   txt:match("[<>!]") 
+      then self.y[#self.y+1] = new 
       else self.x[#self.x+1] = new end end end 
   return all end
 

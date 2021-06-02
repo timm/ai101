@@ -24,7 +24,7 @@ function Tbl:add(t)
   else
     t.all = self:newCols(t) end end
 
-function newRow(t) 
+function Tbl:newRow(t) 
   for _, col in pairs(self.all) do col:add(t[col.at]) end
   return  Row(self,t) end
 

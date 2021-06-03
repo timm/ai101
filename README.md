@@ -25,6 +25,9 @@ also serves as an optimizing planner.
 
 In the case of a command, a formal description of how to run it and what command line options it takes. For program functions, a list of the parameters the function takes and which header file contains its declaration.
 
+## INSTALLATION
+
+Set
 ## DESCRIPTION
 A textual description of the functioning of the command or function.
 

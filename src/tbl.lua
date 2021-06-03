@@ -10,7 +10,14 @@ local Tbl = Lib.class()
 
 function Tbl:_init(rows) 
   self.rows, self.klass = {},nil
+  self.header={}
   self.x, self.y,self.all = {},{},{} end
+
+-- Create a new table the mimics the current structure
+function Tbl:clone(rows)
+  new  = Tbl({self.header})
+  for row in pairs(rows or {}) do new:add(row)  end
+  return new end
 
 -- For first row, make columns; else add a new row
 function Tbl:add(t)
@@ -25,6 +32,7 @@ function Tbl:newRow(t)
   return  Row(self,t) end
 
 function Tbl:newCols(t,  what,new,all,w,x) 
+  self.header = t
   all={}
   for at,txt in pairs(t) do
     w= txt:find("?") and Skip or (txt:sub(1,1):match("%u+") and Num or Sym)
@@ -45,7 +53,8 @@ function Tbl:neighbors(r1,the,cols,rows)
   rows = rows or self.rows
   a    = {}
   for _,r2 in pairs(rows) do
-    a[#a+1] = {r1:dist(r2,the,cols),r2} end
+    a[#a+1] = {r1:dist(r2,the,cols) -- item1: distance
+              , r2} end             -- item2: a row
   table.sort(a, function (y,z) return y[1]<z[1] end)
   return a end
 

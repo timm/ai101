@@ -2,3 +2,5 @@ theme: jekyll-theme-minimal
 title: Xplanr
 description: "Explaining 'it' means you can simulate running 'it' and find ways to run  'it' better."
 logo: /assets/img/xplanr.png 
+kramdown:
+  input: GFM

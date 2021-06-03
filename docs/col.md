@@ -1,9 +1,8 @@
 
+Routines for all columns.
+(c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua
--- vim: ts=2 sw=2 sts=2 et :
--- Routines for all columns.
--- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 local Lib,Thing = require("lib"),require("thing")
 local Col = Lib.class(Thing)

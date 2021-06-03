@@ -1,7 +1,6 @@
 -- vim: ts=2 sw=2 sts=2 et :
 -- Tables store rows, summarized in columns.
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
-
 local r = require
 local Lib,Thing,Row = r("lib"),r("thing"),r("row")
 local Skip,Num,Sym  = r("skip"),r("num"),r("sym")

@@ -20,7 +20,7 @@ doc() {
    for f in *.lua; do 
      g=$Etc/docs/${f%.lua}.md
      echo "# $g ..."
-     cat $f | lua $Etc/etc/lua2md.lua $i > $g
+     gawk -f $Etc/etc/prep.awk $f > $g
    done
 }
 

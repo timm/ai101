@@ -14,7 +14,7 @@ is a list of column names. In those names,
 - Goals are classes are dependent variables and are held in `self.y`.
 - All other  columns are independent variables and are held in  `self.x`.
 
-Uses:
+Requires...
 
 ```lua
 local r = require 
@@ -91,11 +91,11 @@ function Tbl:neighbors(r1,the,cols,rows)
   return a end
 ```
 
-Find something faraway
+Check your neighbors to find  something faraway
 
 ```lua
 function Tbl:faraway(row,the,cols,rows)
-  all = self:around(row,the,cols,rows)
+  all = self:neighbors(row,the,cols,rows)
   return all[the.far*all // 1][2] end
 ```
 

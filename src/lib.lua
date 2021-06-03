@@ -1,17 +1,22 @@
 -- vim: ts=2 sw=2 sts=2 et :
--- Misc library routines
+-- Misc library routines   
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 local Lib={}
 
---- Maths -------------------------------------------------
+-- ## Maths 
 -- Round
 
 function Lib.round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
    return math.floor(num * mult + 0.5) / mult end
 
---- Print a table -----------------------------------------
+-- ## Printing  
+-- String formatting
+
+function fmt (todo, ...)
+  return io.write(string.format(todo, unpack(arg))) end
+
 -- Concat one table
 function Lib.cat(t,sep) return table.concat(t,sep or ", ") end
 
@@ -43,7 +48,7 @@ function Lib.oo(t,pre,     seen,s,sep,keys, nums)
     sep = ', ' end 
   return tostring(pre) .. '{' .. s ..'}' end
 
---- Files -------------------------------------------------
+-- ## Files
 -- Iterate over the records in a csv file.
 function Lib.csv(file,     stream,tmp,str,row)
   stream = file and io.input(file) or io.input()
@@ -60,7 +65,7 @@ function Lib.csv(file,     stream,tmp,str,row)
       io.close(stream) end end   
 end
 
---- Random number generation ------------------------------
+-- ## Random number generation 
 -- Lua's built-in randoms can vary across platforms.
 do
   local seed0 = 10013
@@ -71,7 +76,7 @@ do
   function Lib.seed(n) seed= n and n or seed0 end end
   function Lib.any(a) return a[Lib.rand() * #lst // 1] end
 
---- Meta functions ----------------------------------------
+-- ## Meta functions
 -- Return it
 function Lib.same(x) return x end
 
@@ -109,7 +114,7 @@ function Lib.coerce(x)
   return tonumber(x) or x
 end
 
---- Handle command-line flags -----------------------------
+-- ## Command-line flags
 -- Update `t` with any relevant flags from the command-line.
 function Lib.cli(t,     i,key,now)
   i = 0
@@ -122,8 +127,7 @@ function Lib.cli(t,     i,key,now)
       if type(now) == type(t[key]) then t[key] = now end end end
   return Lib.copy(t) end
 
---- Objects -----------------------------
-
+-- ## Objects 
 -- class - a very compact class utilities module
 --
 -- taken from Steve Donovan, 2012; License MIT
@@ -226,5 +230,5 @@ function Lib.class(base)
   return klass
 end
 
---- Exports -----------------------------------------------
+-- ## Exports 
 return Lib

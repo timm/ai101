@@ -1,5 +1,5 @@
 
-Misc library routines
+Misc library routines   
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua
@@ -7,7 +7,7 @@ Misc library routines
 local Lib={}
 ```
 
-- Maths -------------------------------------------------
+## Maths 
 Round
 
 ```lua
@@ -17,7 +17,15 @@ function Lib.round(num, numDecimalPlaces)
    return math.floor(num * mult + 0.5) / mult end
 ```
 
-- Print a table -----------------------------------------
+## Printing  
+String formatting
+
+```lua
+
+function fmt (todo, ...)
+  return io.write(string.format(todo, unpack(arg))) end
+```
+
 Concat one table
 
 ```lua
@@ -58,7 +66,7 @@ function Lib.oo(t,pre,     seen,s,sep,keys, nums)
   return tostring(pre) .. '{' .. s ..'}' end
 ```
 
-- Files -------------------------------------------------
+## Files
 Iterate over the records in a csv file.
 
 ```lua
@@ -78,7 +86,7 @@ function Lib.csv(file,     stream,tmp,str,row)
 end
 ```
 
-- Random number generation ------------------------------
+## Random number generation 
 Lua's built-in randoms can vary across platforms.
 
 ```lua
@@ -92,7 +100,7 @@ do
   function Lib.any(a) return a[Lib.rand() * #lst // 1] end
 ```
 
-- Meta functions ----------------------------------------
+## Meta functions
 Return it
 
 ```lua
@@ -145,7 +153,7 @@ function Lib.coerce(x)
 end
 ```
 
-- Handle command-line flags -----------------------------
+## Command-line flags
 Update `t` with any relevant flags from the command-line.
 
 ```lua
@@ -161,11 +169,7 @@ function Lib.cli(t,     i,key,now)
   return Lib.copy(t) end
 ```
 
-- Objects -----------------------------
-
-```lua
-```
-
+## Objects 
 class - a very compact class utilities module
 
 taken from Steve Donovan, 2012; License MIT
@@ -280,7 +284,7 @@ function Lib.class(base)
 end
 ```
 
-- Exports -----------------------------------------------
+## Exports 
 
 ```lua
 return Lib

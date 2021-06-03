@@ -22,6 +22,13 @@ doc() {
      echo "# $g ..."
      gawk -f $Etc/etc/prep.awk $f > $g
    done
+   sep=""
+   echo "" > $Etc/docs/_include/localtoc.html
+   cd $Etc/src
+   for f in *.lua;do
+     g=${f%.lua}
+     echo  "<li><a href=\"$g\">$g</a>: $what</li>" >> $Etc/docs/_include/localtoc.html
+   done
 }
 
 ok() {

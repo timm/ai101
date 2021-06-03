@@ -43,3 +43,4 @@ function Tbl:newCols(t,  what,new)
   return all end
 
 return Tbl
+```

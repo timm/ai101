@@ -6,6 +6,8 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias gp="git add *;git commit -am save;git push;git status"
+alias hello="git pull"
+alias bye="gp; tmux detach"
 alias h="history"
 alias hh=". $Etc/etc/h"
 alias ls="ls -G"

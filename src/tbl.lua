@@ -39,18 +39,17 @@ function Tbl:newCols(t,  what,new,all,w,x)
       else self.x[#self.x+1] = x end end end 
   return all end
 
--- Sort neighbors.
-function Tbl:around(r1,the,cols,rows)
+-- Sort neighbors by distance
+function Tbl:neighbors(r1,the,cols,rows)
   cols = cols or self.x
   rows = rows or self.rows
   a    = {}
   for _,r2 in pairs(rows) do
-    a[#a+1] = {r1:dist(r2,the,cols),rows} end
+    a[#a+1] = {r1:dist(r2,the,cols),r2} end
   table.sort(a, function (y,z) return y[1]<z[1] end)
   return a end
 
--- Return a row far from `row`.
-function Tbl:far(row,the,cols,rows)
+function Tbl:faraway(row,the,cols,rows)
   all = self:around(row,the,cols,rows)
   return all[the.far*all // 1][2] end
 

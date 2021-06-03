@@ -133,15 +133,8 @@ function Lib.cli(t,     i,key,now)
 -- ## Objects 
 -- class - a very compact class utilities module
 --
--- taken from Steve Donovan, 2012; License MIT
-```
-
-
-create a class with an optional base class.
-
-
-
-```lua
+-- Taken from Steve Donovan, 2012;
+-- Creates a class with an optional base class.
 --
 -- The resulting table can be called to make a new object, which invokes
 -- an optional constructor named `_init`. If the base

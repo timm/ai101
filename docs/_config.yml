@@ -3,6 +3,3 @@ title: Xplanr
 author: Tim Menzies
 description: "'Explaination' equals 'planning' equals, well, everything."
 logo: /assets/img/xplanr.png 
-markdown:
-  kramdown:
-    input: GFM

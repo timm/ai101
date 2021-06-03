@@ -45,6 +45,7 @@ function Tbl:newRow(t)
   for _, col in pairs(self.all) do col:add(t[col.at]) end
   return  Row(self,t) end
 
+-- Initialize the column data.
 function Tbl:newCols(t,  what,new,all,w,x) 
   self.header = t
   all={}
@@ -52,7 +53,7 @@ function Tbl:newCols(t,  what,new,all,w,x)
     w= s:find("?") and Skip or (s:match("^%u") and Num or Sym)
     x= w(at,s)
     all[#all+1] = x
-    if not s:find("?") then
+    if not s:find("?") then -- only if not skipping
       if   s:find("!") 
       then self.klass = x 
       end 
@@ -63,10 +64,8 @@ function Tbl:newCols(t,  what,new,all,w,x)
 
 -- Sort neighbors by distance
 function Tbl:neighbors(r1,the,cols,rows)
-  cols = cols or self.x
-  rows = rows or self.rows
   a    = {}
-  for _,r2 in pairs(rows) do
+  for _,r2 in pairs(rows or self.rows) do
     a[#a+1] = {r1:dist(r2,the,cols) -- item1: distance
               , r2} end             -- item2: a row
   table.sort(a, function (y,z) return y[1]<z[1] end)

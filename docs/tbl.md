@@ -6,7 +6,6 @@ Tables store rows, summarized in columns.
 local r = require 
 local Lib,Thing,Row = r("lib"),r("thing"),r("row")
 local Skip,Num,Sym  = r("skip"),r("num"),r("sym")
-
 local Tbl = Lib.class()
 
 function Tbl:_init(rows) 

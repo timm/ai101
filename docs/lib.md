@@ -4,7 +4,8 @@
 -- vim: ts=2 sw=2 sts=2 et :
 -- Misc library routines   
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
-
+--
+-- Create
 local Lib={}
 
 -- ## Maths 

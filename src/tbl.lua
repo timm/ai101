@@ -14,7 +14,7 @@
 --   - Goals are classes are dependent variables and are held in `self.y`.
 --   - All other  columns are independent variables and are held in  `self.x`.
 --
--- Uses:
+-- Requires...
 local r = require 
 local Lib,Thing,Row = r("lib"),r("thing"),r("row")
 local Skip,Num,Sym  = r("skip"),r("num"),r("sym")
@@ -73,9 +73,9 @@ function Tbl:neighbors(r1,the,cols,rows)
   table.sort(a, function (y,z) return y[1]<z[1] end)
   return a end
 
--- Find something faraway
+-- Check your neighbors to find  something faraway
 function Tbl:faraway(row,the,cols,rows)
-  all = self:around(row,the,cols,rows)
+  all = self:neighbors(row,the,cols,rows)
   return all[the.far*all // 1][2] end
 
 -- Return

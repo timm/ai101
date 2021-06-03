@@ -57,8 +57,10 @@ function Tbl:neighbors(r1,the,cols,rows)
   table.sort(a, function (y,z) return y[1]<z[1] end)
   return a end
 
+-- Find something faraway
 function Tbl:faraway(row,the,cols,rows)
   all = self:around(row,the,cols,rows)
   return all[the.far*all // 1][2] end
 
+-- Return
 return Tbl

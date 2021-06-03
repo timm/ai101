@@ -1,6 +1,7 @@
 theme: jekyll-theme-minimal
 title: Xplanr
-description: "Explaining 'it' means you can simulate running 'it' and find ways to run  'it' better."
+author: Tim Menzies
+description: "'Explaination' equals 'planning' equals, well, everything."
 logo: /assets/img/xplanr.png 
 markdown:
   kramdown:

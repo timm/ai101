@@ -3,9 +3,19 @@ Tables store rows, summarized in columns.
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua
+```
+
+Uses:
+
+```lua
 local r = require 
 local Lib,Thing,Row = r("lib"),r("thing"),r("row")
 local Skip,Num,Sym  = r("skip"),r("num"),r("sym")
+```
+
+Create
+
+```lua
 local Tbl = Lib.class()
 
 function Tbl:_init(rows) 
@@ -70,10 +80,18 @@ function Tbl:neighbors(r1,the,cols,rows)
               , r2} end             -- item2: a row
   table.sort(a, function (y,z) return y[1]<z[1] end)
   return a end
+```
 
+Find something faraway
+
+```lua
 function Tbl:faraway(row,the,cols,rows)
   all = self:around(row,the,cols,rows)
   return all[the.far*all // 1][2] end
+```
 
+Return
+
+```lua
 return Tbl
 ```

@@ -13,8 +13,7 @@
 --   - Goals to be minimized or maximized are denoted by "-" or "+", respectively.
 --   - Goals are classes are dependent variables and are held in `self.y`.
 --   - All other  columns are independent variables and are held in  `self.x`.
-
-
+--
 -- Uses:
 local r = require 
 local Lib,Thing,Row = r("lib"),r("thing"),r("row")

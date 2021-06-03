@@ -14,10 +14,6 @@ is a list of column names. In those names,
 - Goals are classes are dependent variables and are held in `self.y`.
 - All other  columns are independent variables and are held in  `self.x`.
 
-```lua
-
-```
-
 Uses:
 
 ```lua

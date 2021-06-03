@@ -1,7 +1,7 @@
 <img src="/docs/assets/img/xplanr.png" align=right width=600>
 
 
-<details> <summary>Contents</summary>
+<small><details> <summary>Contents</summary>
 
   - [NAME](#name)
   - [SYNOPSIS](#synopsis)
@@ -13,7 +13,7 @@
   - [AUTHOR](#author)
   - [COPYRIGHT](#copyright)
 
-</details>
+</details></small>
 
 ## NAME
 XPLANR

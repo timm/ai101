@@ -1,7 +1,7 @@
 -- vim: ts=2 sw=2 sts=2 et :
 -- Tables store rows, summarized in columns.    
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
-local r = require -- aa
+local r = require 
 local Lib,Thing,Row = r("lib"),r("thing"),r("row")
 local Skip,Num,Sym  = r("skip"),r("num"),r("sym")
 
@@ -34,7 +34,7 @@ function Tbl:newCols(t,  what,new,all,w,x)
   self.header = t
   all={}
   for at,txt in pairs(t) do
-    w= txt:find("?")             and Skip or (
+    w= txt:find("?") and Skip or (
        txt:sub(1,1):match("%u+") and Num or Sym)
     x= w(at,txt)
     all[#all+1] = x

@@ -29,3 +29,4 @@ function Col:dist(x,y)
   return x == "?" and y == "?" and 1 or self:dist1(x,y) end
 
 return Col
+```

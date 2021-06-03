@@ -96,6 +96,7 @@ do
   local mult  = 16807.0
   function Lib.rand()  seed= (mult*seed)%mod; return seed/mod end 
   function Lib.seed(n) seed= n and n or seed0 end end
+  function Lib.any(a) return a[Lib.rand() * #lst // 1] end
 ```
 
 
@@ -296,3 +297,4 @@ Exports -----------------------------------------------
 
 ```lua
 return Lib
+```

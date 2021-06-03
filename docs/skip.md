@@ -12,3 +12,4 @@ function Skip:_init(at,txt) self:super(at,txt) end
 function Skip:add(x,_)  return x end
 
 return Skip
+```

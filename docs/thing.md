@@ -22,3 +22,4 @@ function Thing:__tostring()
    return "<" .. s .. ">" end
 
 return Thing
+```

@@ -34,3 +34,4 @@ function Num:norm1(x)  return (x-self.lo)/(self.hi-self.lo+1E-32) end
 function Num:spread(x) return self.sd end
 
 return Num
+```

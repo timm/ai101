@@ -120,6 +120,7 @@ if doc(line) then
 else
   parse_code(line)
 end
+print "```"
 
 --- License
 --- -------

@@ -6,9 +6,11 @@
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 return require("lib").cli({
-   k=2
+   enough=.5
+  ,k=2
   ,m=1
   ,p=2
   ,data="data/aa.csv"
   ,seed=10013
 })
+```

@@ -30,3 +30,4 @@ function Sym:dist1(x,y) return x==y and 0 or 1 end
 function Sym:spread()   return self:ent() end
 
 return Sym
+```

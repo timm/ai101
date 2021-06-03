@@ -1,9 +1,8 @@
 
+Summarizing numeric columns.
+(c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua
--- vim: ts=2 sw=2 sts=2 et :
--- Summarizing numeric columns.
--- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 local Lib,Col = require("lib"),require("col")
 local Num = Lib.class(Col)

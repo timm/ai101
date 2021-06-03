@@ -34,7 +34,8 @@ function Tbl:newCols(t,  what,new,all,w,x)
   self.header = t
   all={}
   for at,txt in pairs(t) do
-    w= txt:find("?") and Skip or (txt:sub(1,1):match("%u+") and Num or Sym)
+    w= txt:find("?")             and Skip or (
+       txt:sub(1,1):match("%u+") and Num or Sym)
     x= w(at,txt)
     all[#all+1] = x
     if not txt:find("?") then

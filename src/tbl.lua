@@ -1,6 +1,19 @@
 -- vim: ts=2 sw=2 sts=2 et :
 -- Tables store rows, summarized in columns.    
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
+--
+-- Tables are initialized from lists whose first item
+-- is a list of column names. In those names,
+--
+-- - anything starting with Upper case is numeric
+-- - anything column  in "?" is to be ignored
+-- - for the non-ignored columns:
+--   - These are held in  `self.all`.
+--   - if there is a klass column (denoted by "!") --     is help in `self.klass`
+--   - Goals to be minimized or maximized are denoted by "-" or "+", respectively.
+--   - Goals are classes are dependent variables and are held in `self.y`.
+--   - All other  columns are independent variables and are held in  `self.x`.
+
 
 -- Uses:
 local r = require 
@@ -16,7 +29,7 @@ function Tbl:_init(rows)
   self.x, self.y,self.all = {},{},{} end
 
 -- Create a new table the mimics the current structure
-function Tbl:clone(rows)
+function Tbl:mimic(rows)
   new  = Tbl({self.header})
   for row in pairs(rows or {}) do new:add(row)  end
   return new end

@@ -8,7 +8,7 @@ Tbl=require("tbl")
 Lib=require("lib")
 
 do
-  local t=Tbl.new()
+  local t=Tbl()
   for row in Lib.csv("data/weather.csv") do t:add(row) end
   Lib.o(t)
 end

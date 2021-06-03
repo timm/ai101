@@ -26,19 +26,6 @@ do
   for i = 1,n do assert(t[i] == round(r(),2), "oh dear") end
 end
 
-do 
-  local This,That={},{}
-  function This.new() return isa(This,{n=10,this=2}) end 
-  function That.new() return isa(That,{n=10,that=20}) end 
-  function This:add(x) self.this = self.this + x end
-  function That:add(x) self.that = self.that + x end
-  local this,that = This.new(), That.new()
-  this:add(20)
-  that:add(200)
-  assert(this.this ==22,"or else")
-  assert(that.that ==220,"or else")
-end
-
 do
   local n=0
   for row in csv("data/weather.csv") do 

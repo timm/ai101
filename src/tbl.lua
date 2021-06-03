@@ -2,11 +2,9 @@
 -- Tables store rows, summarized in columns.
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
-local Lib  = require("lib")
-local Row  = require("row")
-local Skip = require("skip")
-local Num  = require("num")
-local Sym  = require("sym")
+local r = require
+local Lib,Thing,Row = r("lib"),r("thing"),r("row")
+local Skip,Num,Sym  = r("skip"),r("num"),r("sym")
 
 local Tbl = Lib.class()
 
@@ -14,17 +12,19 @@ function Tbl:_init(rows)
   self.rows, self.klass = {},nil
   self.x, self.y,self.all = {},{},{} end
 
+-- For first row, make columns; else add a new row
 function Tbl:add(t)
   t = t.cells and t.cells or t
   if   #self.all==0 
   then self.all = self:newCols(t) 
   else self.rows[#self.rows+1] = self:newRow(t) end end
 
+-- Update all the columns, return a new row.
 function Tbl:newRow(t) 
   for _, col in pairs(self.all) do col:add(t[col.at]) end
   return  Row(self,t) end
 
-function Tbl:newCols(t,  what,new) 
+function Tbl:newCols(t,  what,new,all,w,x) 
   all={}
   for at,txt in pairs(t) do
     w= txt:find("?") and Skip or (txt:sub(1,1):match("%u+") and Num or Sym)
@@ -38,5 +38,20 @@ function Tbl:newCols(t,  what,new)
       then self.y[#self.y+1] = x 
       else self.x[#self.x+1] = x end end end 
   return all end
+
+-- Sort neighbors.
+function Tbl:around(r1,the,cols,rows)
+  cols = cols or self.x
+  rows = rows or self.rows
+  a    = {}
+  for _,r2 in pairs(rows) do
+    a[#a+1] = {r1:dist(r2,the,cols),rows} end
+  table.sort(a, function (y,z) return y[1]<z[1] end)
+  return a end
+
+-- Return a row far from `row`.
+function Tbl:far(row,the,cols,rows)
+  all = self:around(row,the,cols,rows)
+  return all[the.far*all // 1][2] end
 
 return Tbl

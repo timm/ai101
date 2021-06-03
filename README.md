@@ -29,7 +29,12 @@ In the case of a command, a formal description of how to run it and what command
 
 Set
 ## DESCRIPTION
-A textual description of the functioning of the command or function.
+
+More and more  use  of AI, less and less understanding on how those algorithms
+work. Some recent concern that this lack of comprehension has  lamentable
+ethical impacts.
+
+Some cent evidence that space can be reduced. Easier to explain.
 
 ## OPTIONS
 

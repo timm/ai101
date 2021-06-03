@@ -1,5 +1,5 @@
 -- vim: ts=2 sw=2 sts=2 et :
--- Tables store rows, summarized in columns.
+-- Tables store rows, summarized in columns.    
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 local r = require -- aa
 local Lib,Thing,Row = r("lib"),r("thing"),r("row")

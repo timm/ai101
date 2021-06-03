@@ -3,7 +3,7 @@ Tables store rows, summarized in columns.
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua
-local r = require
+local r = require -- aa
 local Lib,Thing,Row = r("lib"),r("thing"),r("row")
 local Skip,Num,Sym  = r("skip"),r("num"),r("sym")
 

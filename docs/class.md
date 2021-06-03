@@ -1,30 +1,40 @@
 
----------------
-class - a very compact class utilities module
-
-taken from Steve Donovan, 2012; License MIT
-- create a class with an optional base class.
-
-The resulting table can be called to make a new object, which invokes
-an optional constructor named `_init`. If the base
-class has a constructor, you can call it as the `super()` method.
-Every class has a `_class` and a maybe-nil `_base` field, which can
-be accessed through the object.
-
-All metamethods are inherited.
-The class is given a function `Klass.classof(obj)`.
 
 ```lua
+-----------------
+-- class - a very compact class utilities module
+--
+-- taken from Steve Donovan, 2012; License MIT
 ```
 
-- add the key/value pairs of arrays to the first array.
-For sets, this is their union. For the same keys,
-the values from the first table will be overwritten.
-@param t table to be updated
-@param ... tables containg more pairs to be added
-@return the updated table
+
+create a class with an optional base class.
+
+
 
 ```lua
+--
+-- The resulting table can be called to make a new object, which invokes
+-- an optional constructor named `_init`. If the base
+-- class has a constructor, you can call it as the `super()` method.
+-- Every class has a `_class` and a maybe-nil `_base` field, which can
+-- be accessed through the object.
+--
+-- All metamethods are inherited.
+-- The class is given a function `Klass.classof(obj)`.
+```
+
+
+add the key/value pairs of arrays to the first array.
+
+
+
+```lua
+-- For sets, this is their union. For the same keys,
+-- the values from the first table will be overwritten.
+-- @param t table to be updated
+-- @param ... tables containg more pairs to be added
+-- @return the updated table
 local function update (t,...)
     for i = 1,select('#',...) do
         for k,v in pairs(select(i,...)) do
@@ -33,17 +43,14 @@ local function update (t,...)
     end
     return t
 end
-```
 
-Bring modules or tables into 't`.
-If `lib` is a string, then it becomes the result of `require`
-With only one argument, the second argument is assumed to be
-the `ml` table itself.
-@param t table to be updated, or current environment
-@param lib table, module name or `nil` for importing 'ml'
-@return the updated table
-
-```lua
+-- Bring modules or tables into 't`.
+-- If `lib` is a string, then it becomes the result of `require`
+-- With only one argument, the second argument is assumed to be
+-- the `ml` table itself.
+-- @param t table to be updated, or current environment
+-- @param lib table, module name or `nil` for importing 'ml'
+-- @return the updated table
 local function import(t,...)
     local other
     -- explicit table, or current environment
@@ -70,14 +77,16 @@ local function import(t,...)
     end
     return update(t,table.unpack(libs))
 end
-
 ```
 
-- class
-@param base optional base class
-@return the callable metatable representing the class
+
+class
+
+
 
 ```lua
+-- @param base optional base class
+-- @return the callable metatable representing the class
 local  function class(base)
     local klass, base_ctor = {}
     if base then

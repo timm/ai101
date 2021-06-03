@@ -1,60 +1,49 @@
 
-Tables store rows, summarized in columns.    
-(c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
-
-Tables are initialized from lists whose first item
-is a list of column names. In those names,
-
-- anything starting with Upper case is numeric
-- anything column  in "?" is to be ignored
-- for the non-ignored columns:
-- These are held in  `self.all`.
-- if there is a klass column (denoted by "!") --     is help in `self.klass`
-- Goals to be minimized or maximized are denoted by "-" or "+", respectively.
-- Goals are classes are dependent variables and are held in `self.y`.
-- All other  columns are independent variables and are held in  `self.x`.
-
-Requires...
 
 ```lua
+-- vim: ts=2 sw=2 sts=2 et :
+-- Tables store rows, summarized in columns.    
+-- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
+--
+-- Tables are initialized from lists whose first item
+-- is a list of column names. In those names,
+--
+-- - anything starting with Upper case is numeric
+-- - anything column  in "?" is to be ignored
+-- - for the non-ignored columns:
+--   - These are held in  `self.all`.
+--   - if there is a klass column (denoted by "!") --     is help in `self.klass`
+--   - Goals to be minimized or maximized are denoted by "-" or "+", respectively.
+--   - Goals are classes are dependent variables and are held in `self.y`.
+--   - All other  columns are independent variables and are held in  `self.x`.
+--
+-- Requires...
 local r = require 
 local Lib,Thing,Row = r("lib"),r("thing"),r("row")
 local Skip,Num,Sym  = r("skip"),r("num"),r("sym")
-```
 
-Create
-
-```lua
+-- Create
 local Tbl = Lib.class()
 
 function Tbl:_init(rows) 
   self.rows, self.klass = {},nil
   self.header={}
   self.x, self.y,self.all = {},{},{} end
-```
 
-Create a new table the mimics the current structure
-
-```lua
+-- Create a new table the mimics the current structure
 function Tbl:mimic(rows)
   new  = Tbl({self.header})
   for row in pairs(rows or {}) do new:add(row)  end
   return new end
-```
 
-For first row, make columns; else add a new row
-
-```lua
+-- For first row, make columns; else add a new row
 function Tbl:add(t)
   t = t.cells and t.cells or t
   if   #self.all==0 
   then self.all = self:newCols(t) 
   else self.rows[#self.rows+1] = self:newRow(t) end end
-```
 
-Update all the columns, return a new row.
-
-```lua
+-- Update all the columns, return a new row.
 function Tbl:newRow(t) 
   for _, col in pairs(self.all) do col:add(t[col.at]) end
   return  Row(self,t) end
@@ -75,11 +64,8 @@ function Tbl:newCols(t,  what,new,all,w,x)
       then self.y[#self.y+1] = x 
       else self.x[#self.x+1] = x end end end 
   return all end
-```
 
-Sort neighbors by distance
-
-```lua
+-- Sort neighbors by distance
 function Tbl:neighbors(r1,the,cols,rows)
   cols = cols or self.x
   rows = rows or self.rows
@@ -89,18 +75,12 @@ function Tbl:neighbors(r1,the,cols,rows)
               , r2} end             -- item2: a row
   table.sort(a, function (y,z) return y[1]<z[1] end)
   return a end
-```
 
-Check your neighbors to find  something faraway
-
-```lua
+-- Check your neighbors to find  something faraway
 function Tbl:faraway(row,the,cols,rows)
   all = self:neighbors(row,the,cols,rows)
   return all[the.far*all // 1][2] end
-```
 
-Return
-
-```lua
+-- Return
 return Tbl
 ```

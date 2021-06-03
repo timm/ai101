@@ -1,46 +1,32 @@
 
-Misc library routines   
-(c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua
+-- vim: ts=2 sw=2 sts=2 et :
+-- Misc library routines   
+-- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 local Lib={}
-```
 
-## Maths 
-Round
-
-```lua
+-- ## Maths 
+-- Round
 
 function Lib.round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
    return math.floor(num * mult + 0.5) / mult end
-```
 
-## Printing  
-String formatting
-
-```lua
+-- ## Printing  
+-- String formatting
 
 function fmt (todo, ...)
   return io.write(string.format(todo, unpack(arg))) end
-```
 
-Concat one table
-
-```lua
+-- Concat one table
 function Lib.cat(t,sep) return table.concat(t,sep or ", ") end
-```
 
-Show the print string.
-
-```lua
+-- Show the print string.
 function Lib.o(t,pre) print(Lib.oo(t,pre))  end
-```
 
-Convert a table to a print string.
-
-```lua
+-- Convert a table to a print string.
 function Lib.oo(t,pre,     seen,s,sep,keys, nums)
   seen = seen or {}
   if seen[t] then return "..." end
@@ -64,12 +50,9 @@ function Lib.oo(t,pre,     seen,s,sep,keys, nums)
     else s = s .. sep .. tostring(k) .. '=' .. v end
     sep = ', ' end 
   return tostring(pre) .. '{' .. s ..'}' end
-```
 
-## Files
-Iterate over the records in a csv file.
-
-```lua
+-- ## Files
+-- Iterate over the records in a csv file.
 function Lib.csv(file,     stream,tmp,str,row)
   stream = file and io.input(file) or io.input()
   tmp    = io.read()
@@ -84,12 +67,9 @@ function Lib.csv(file,     stream,tmp,str,row)
     else
       io.close(stream) end end   
 end
-```
 
-## Random number generation 
-Lua's built-in randoms can vary across platforms.
-
-```lua
+-- ## Random number generation 
+-- Lua's built-in randoms can vary across platforms.
 do
   local seed0 = 10013
   local seed  = seed0
@@ -98,34 +78,22 @@ do
   function Lib.rand()  seed= (mult*seed)%mod; return seed/mod end 
   function Lib.seed(n) seed= n and n or seed0 end end
   function Lib.any(a) return a[Lib.rand() * #lst // 1] end
-```
 
-## Meta functions
-Return it
-
-```lua
+-- ## Meta functions
+-- Return it
 function Lib.same(x) return x end
-```
 
-Modify a list of it.
-
-```lua
+-- Modify a list of it.
 function Lib.map(a,f,     b)
   b, f = {}, f or Lib.same
   for i,v in pairs(a or {}) do b[i] = f(v) end 
   return b end 
-```
 
-Deep copy it.
-
-```lua
+-- Deep copy it.
 function Lib.copy(t) 
   return type(t) ~= 'table' and t or Lib.map(t,Lib.copy) end
-```
 
-Report rogie locals
-
-```lua
+-- Report rogie locals
 function Lib.rogues(    skip)
   skip = {
     jit=true, utf8=true, math=true, package=true, table=true,
@@ -141,22 +109,16 @@ function Lib.rogues(    skip)
     if not skip[k] then
       if k:match("^[^A-Z]") then
         print("-- rogue ["..k.."]") end end end end
-```
 
-Coerce a string to its right type.
-
-```lua
+-- Coerce a string to its right type.
 function Lib.coerce(x)
   if  x=="true"  then return true  end
   if  x=="false" then return false  end
   return tonumber(x) or x
 end
-```
 
-## Command-line flags
-Update `t` with any relevant flags from the command-line.
-
-```lua
+-- ## Command-line flags
+-- Update `t` with any relevant flags from the command-line.
 function Lib.cli(t,     i,key,now)
   i = 0
   while i < #arg do
@@ -167,34 +129,39 @@ function Lib.cli(t,     i,key,now)
       i = i+1
       if type(now) == type(t[key]) then t[key] = now end end end
   return Lib.copy(t) end
+
+-- ## Objects 
+-- class - a very compact class utilities module
+--
+-- taken from Steve Donovan, 2012; License MIT
 ```
 
-## Objects 
-class - a very compact class utilities module
 
-taken from Steve Donovan, 2012; License MIT
-- create a class with an optional base class.
+create a class with an optional base class.
 
-The resulting table can be called to make a new object, which invokes
-an optional constructor named `_init`. If the base
-class has a constructor, you can call it as the `super()` method.
-Every class has a `_class` and a maybe-nil `_base` field, which can
-be accessed through the object.
 
-All metamethods are inherited.
-The class is given a function `Klass.classof(obj)`.
 
 ```lua
+--
+-- The resulting table can be called to make a new object, which invokes
+-- an optional constructor named `_init`. If the base
+-- class has a constructor, you can call it as the `super()` method.
+-- Every class has a `_class` and a maybe-nil `_base` field, which can
+-- be accessed through the object.
+--
+-- All metamethods are inherited.
+-- The class is given a function `Klass.classof(obj)`.
+--
 ```
 
-- add the key/value pairs of arrays to the first array.
-For sets, this is their union. For the same keys,
-the values from the first table will be overwritten.
-@param t table to be updated
-@param ... tables containg more pairs to be added
-@return the updated table
+
+add the key/value pairs of arrays to the first array.
+
+
 
 ```lua
+-- For sets, this is their union. For the same keys,
+-- the values from the first table will be overwritten.
 local function update (t,...)
     for i = 1,select('#',...) do
         for k,v in pairs(select(i,...)) do
@@ -203,17 +170,11 @@ local function update (t,...)
     end
     return t
 end
-```
 
-Bring modules or tables into 't`.
-If `lib` is a string, then it becomes the result of `require`
-With only one argument, the second argument is assumed to be
-the `ml` table itself.
-@param t table to be updated, or current environment
-@param lib table, module name or `nil` for importing 'ml'
-@return the updated table
-
-```lua
+-- Bring modules or tables into 't`.
+-- If `lib` is a string, then it becomes the result of `require`
+-- With only one argument, the second argument is assumed to be
+-- the `ml` table itself.
 local function import(t,...)
     local other
     -- explicit table, or current environment
@@ -242,11 +203,14 @@ local function import(t,...)
 end
 ```
 
-- class
-@param base optional base class
-@return the callable metatable representing the class
+
+class
+
+
 
 ```lua
+-- @param base optional base class
+-- @return the callable metatable representing the class
 function Lib.class(base)
   local klass, base_ctor = {}
   if base then
@@ -282,10 +246,7 @@ function Lib.class(base)
   })
   return klass
 end
-```
 
-## Exports 
-
-```lua
+-- ## Exports 
 return Lib
 ```

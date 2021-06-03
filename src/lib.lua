@@ -141,13 +141,10 @@ function Lib.cli(t,     i,key,now)
 --
 -- All metamethods are inherited.
 -- The class is given a function `Klass.classof(obj)`.
-
+--
 --- add the key/value pairs of arrays to the first array.
 -- For sets, this is their union. For the same keys,
 -- the values from the first table will be overwritten.
--- @param t table to be updated
--- @param ... tables containg more pairs to be added
--- @return the updated table
 local function update (t,...)
     for i = 1,select('#',...) do
         for k,v in pairs(select(i,...)) do
@@ -161,9 +158,6 @@ end
 -- If `lib` is a string, then it becomes the result of `require`
 -- With only one argument, the second argument is assumed to be
 -- the `ml` table itself.
--- @param t table to be updated, or current environment
--- @param lib table, module name or `nil` for importing 'ml'
--- @return the updated table
 local function import(t,...)
     local other
     -- explicit table, or current environment

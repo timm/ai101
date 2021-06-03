@@ -1,8 +1,9 @@
 
-Recursively divide the data.
-(c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua
+-- vim: ts=2 sw=2 sts=2 et :
+-- Recursively divide the data.
+-- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 local r = require
 local Lib,Thing,Tbl = r("lib"),r("thing"),r("tbl")
@@ -38,5 +39,4 @@ local function rdiv(t,the,cols)
       end end
   recurse(t.rows,0)
   return all end
-
 ```

@@ -1,4 +1,4 @@
-<img src="/docs/assets/img/xplanr.png" align=right width=500>
+<img src="/docs/assets/img/xplanr.png" align=right width=600>
 
 
 <details> <summary>Contents</summary>

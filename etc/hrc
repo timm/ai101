@@ -19,8 +19,10 @@ doc() {
    cd $Etc/src
    for f in *.lua; do 
      g=$Etc/docs/${f%.lua}.md
-     echo "# $g ..."
-     gawk -f $Etc/etc/prep.awk $f > $g
+     echo ""
+     echo "# $g ..." > $g
+     echo ""
+     gawk -f $Etc/etc/prep.awk $f >> $g
    done
    sep=""
    echo "" > $Etc/docs/_includes/localtoc.html

@@ -57,14 +57,14 @@ function Tbl:newCols(t,  what,new,all,w,x)
       if   s:find("!") 
       then self.klass = x 
       end 
-      if   s:match("[<>!]") 
+      if   s:match("[%-%+!]") 
       then self.y[#self.y+1] = x 
       else self.x[#self.x+1] = x end end end 
   return all end
 
 -- Sort neighbors by distance
 function Tbl:neighbors(r1,the,cols,rows)
-  a    = {}
+  local a = {}
   for _,r2 in pairs(rows or self.rows) do
     a[#a+1] = {r1:dist(r2,the,cols) -- item1: distance
               , r2} end             -- item2: a row

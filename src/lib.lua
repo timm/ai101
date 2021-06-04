@@ -5,6 +5,12 @@
 -- Create
 local Lib={}
 
+-- ## Options
+function Lib.the(  new)
+  new=Lib.copy( require("about") )
+  Lib.seed(new.seed)
+  return new end
+
 -- ## Maths 
 -- Round
 

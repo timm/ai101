@@ -10,7 +10,7 @@ function Row:_init(t,cells)
 
 function Row:dist(other,the,cols)
   local d,n=0,1E-32
-  for _,col in pairs(cols or _tab.x) do
+  for _,col in pairs(cols or self._tab.x) do
     local inc=col:dist(self.cells[col.at], other.cells[col.at])
     d = d + inc^the.p
     n = n + 1 end

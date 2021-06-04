@@ -18,6 +18,9 @@ function Lib.round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
    return math.floor(num * mult + 0.5) / mult end
 
+function Lib.rs(t,r)
+  return Lib.map(t, function (z) return Lib.round(z,r or 2) end) end
+
 -- ## Printing  
 -- String formatting
 
@@ -81,7 +84,7 @@ do
   local mult  = 16807.0
   function Lib.rand()  seed= (mult*seed)%mod; return seed/mod end 
   function Lib.seed(n) seed= n and n or seed0 end 
-  function Lib.any(a) return a[Lib.rand() * #a // 1] end
+  function Lib.any(a) return a[1 + Lib.rand() * #a // 1] end
 end
 
 -- ## Meta functions

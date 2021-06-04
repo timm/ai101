@@ -25,10 +25,10 @@ local Tbl = Lib.class()
 function Tbl:_init(rows) 
   self.rows, self.klass = {},nil
   self.header={}
-  self.x, self.y,self.all = {},{},{} end
+  self.x, self.y,self.cols = {},{},{} end
 
 -- Create a new table the mimics the current structure
-function Tbl:mimic(rows)
+function Tbl:clone(rows)
   new  = Tbl({self.header})
   for row in pairs(rows or {}) do new:add(row)  end
   return new end
@@ -36,13 +36,13 @@ function Tbl:mimic(rows)
 -- For first row, make columns; else add a new row
 function Tbl:add(t)
   t = t.cells and t.cells or t
-  if   #self.all==0 
-  then self.all = self:newCols(t) 
+  if   #self.cols==0 
+  then self.cols = self:newCols(t) 
   else self.rows[#self.rows+1] = self:newRow(t) end end
 
 -- Update all the columns, return a new row.
 function Tbl:newRow(t) 
-  for _, col in pairs(self.all) do col:add(t[col.at]) end
+  for _, col in pairs(self.cols) do col:add(t[col.at]) end
   return  Row(self,t) end
 
 -- Initialize the column data.

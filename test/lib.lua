@@ -3,7 +3,6 @@
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 package.path = '../src/?.lua;' .. package.path 
-print("-- lib")
 Lib=require("lib")
 local o,isa,rand = Lib.o, Lib.isa, Lib.rand
 local rand,seed,round = Lib.rand, Lib.seed, Lib.round

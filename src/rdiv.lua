@@ -37,4 +37,4 @@ local function rdiv(t,the,cols)
   recurse(t.rows,0)
   return all end
 
-
+return  rdiv

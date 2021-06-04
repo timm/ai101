@@ -5,6 +5,6 @@
 package.path = '../src/?.lua;' .. package.path 
 Lib=require("lib")
 
-local x=require("about")
-Lib.o(x)
+local the=require("about")
+assert(the.m == 1,"config")
 Lib.rogues()

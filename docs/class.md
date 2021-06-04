@@ -1,4 +1,8 @@
 
+
+# class.lua
+
+
 ---------------
 class - a very compact class utilities module
 

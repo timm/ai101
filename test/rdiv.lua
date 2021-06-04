@@ -3,12 +3,12 @@
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 package.path = '../src/?.lua;' .. package.path 
-local  Tbl, Lib = require("tbl"), require("lib")
+Tbl=require("tbl")
+Lib=require("lib")
 
 do
   local t=Tbl()
-  for row in Lib.csv("data/auto93.csv") do t:add(row) end
-  assert(8==#t.cols,"length of  lst")
+  for row in Lib.csv("data/weather.csv") do t:add(row) end
 end
 
 Lib.rogues()

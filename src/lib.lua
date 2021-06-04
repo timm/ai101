@@ -15,7 +15,7 @@ function Lib.round(num, numDecimalPlaces)
 -- ## Printing  
 -- String formatting
 
-function fmt (todo, ...)
+function Lib.fmt (todo, ...)
   return io.write(string.format(todo, unpack(arg))) end
 
 -- Concat one table

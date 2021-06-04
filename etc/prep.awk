@@ -3,6 +3,7 @@ END {
   nil = "^[ \t]*$"
   b4=1 # true if in  comment
   last=""
+  print "\n\n# " FILENAME "\n"
   for(i=1;i<=N;i++)   {
      if (L[i] ~ /-- vim:/) continue
      now = gsub(/^--[\t ]*/,"",L[i])

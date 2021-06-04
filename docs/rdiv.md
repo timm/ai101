@@ -1,8 +1,4 @@
 
-
-# rdiv.lua
-
-
 Recursively divide the data.
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 

@@ -1,7 +1,3 @@
 
-
-# index.lua
-
-
 - # Idnex
 -  adas

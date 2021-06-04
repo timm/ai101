@@ -80,8 +80,9 @@ do
   local mod   = 2147483647.0
   local mult  = 16807.0
   function Lib.rand()  seed= (mult*seed)%mod; return seed/mod end 
-  function Lib.seed(n) seed= n and n or seed0 end end
-  function Lib.any(a) return a[Lib.rand() * #lst // 1] end
+  function Lib.seed(n) seed= n and n or seed0 end 
+  function Lib.any(a) return a[Lib.rand() * #a // 1] end
+end
 
 -- ## Meta functions
 -- Return it

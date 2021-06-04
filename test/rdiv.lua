@@ -3,12 +3,15 @@
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 package.path = '../src/?.lua;' .. package.path 
-Tbl=require("tbl")
-Lib=require("lib")
+r=require
+local  Tbl, Lib,rdiv = r("tbl"), r("lib"),r("rdiv")
 
-do
+local function _t1()
   local t=Tbl()
-  for row in Lib.csv("data/weather.csv") do t:add(row) end
+  for row in Lib.csv("data/auto93.csv") do t:add(row) end
+  local the=Lib.the()
+  rdiv(t,the,t.y)
 end
 
+_t1()
 Lib.rogues()

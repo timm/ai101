@@ -73,8 +73,8 @@ function Tbl:neighbors(r1,the,cols,rows)
 
 -- Check your neighbors to find  something faraway
 function Tbl:faraway(row,the,cols,rows)
-  all = self:neighbors(row,the,cols,rows)
-  return all[the.far*all // 1][2] end
+  local all = self:neighbors(row,the,cols,rows)
+  return all[the.far*#all // 1][2] end
 
 -- Return
 return Tbl

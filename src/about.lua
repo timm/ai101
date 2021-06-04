@@ -4,6 +4,7 @@
 
 return require("lib").cli({
    enough=.5
+  ,far=.9
   ,k=2
   ,m=1
   ,p=2

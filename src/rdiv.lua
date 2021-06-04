@@ -17,17 +17,19 @@ local function rdiv(t,the,cols)
     end
     if   #rows < 2*enough 
     then all[#all+1] = t:clone(rows)
-    else local one,row, three,mid,left,rigth,what
+    else local one,row, three,mid,left,rigth,what,a,b,c
+         print(#rows)
          one  = Lib.any(rows)
          two  = t:faraway(one, the, cols, rows)
          three= t:faraway(two, the, cols, rows)
+         c    = two:dist(three, the, cols)
          for _,row in pairs(rows) do
            a = row:dist(two,   the, cols)
            b = row:dist(three, the, cols)
            row.x = (a^2 + c^2 - b^2)/(2*c) 
          end
          table.sort(rows, function(y,z) return y.x < z.x end)
-         mid, left, right = rows[#rows//2], {}, {}
+         mid, left, right = #rows//2, {}, {}
          for _,row in pairs(rows) do
            what = row.rdiv <= mid and left or right
            what[#what+1] = row end

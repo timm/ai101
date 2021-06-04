@@ -1,4 +1,7 @@
 
+# tbl.lua 
+
+
 Tables store rows, summarized in columns.    
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 

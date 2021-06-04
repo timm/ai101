@@ -28,8 +28,8 @@ doc() {
    cd $Etc/src
    for f in *.lua;do
      g=${f%.lua}
-     echo  " $sep <a href=\"$g\">$g</a>" >> $Etc/docs/_includes/localtoc.html
-     sep="::"
+     echo  "$sep<a href=\"$g\">$g</a>" >> $Etc/docs/_includes/localtoc.html
+     sep=" | "
    done
 }
 

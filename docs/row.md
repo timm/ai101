@@ -1,4 +1,7 @@
 
+# row.lua 
+
+
 Handling  one example in a table.
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 

@@ -34,13 +34,13 @@ local Tbl = Lib.class()
 function Tbl:_init(rows) 
   self.rows, self.klass = {},nil
   self.header={}
-  self.x, self.y,self.all = {},{},{} end
+  self.x, self.y,self.cols = {},{},{} end
 ```
 
 Create a new table the mimics the current structure
 
 ```lua
-function Tbl:mimic(rows)
+function Tbl:clone(rows)
   new  = Tbl({self.header})
   for row in pairs(rows or {}) do new:add(row)  end
   return new end
@@ -51,8 +51,8 @@ For first row, make columns; else add a new row
 ```lua
 function Tbl:add(t)
   t = t.cells and t.cells or t
-  if   #self.all==0 
-  then self.all = self:newCols(t) 
+  if   #self.cols==0 
+  then self.cols = self:newCols(t) 
   else self.rows[#self.rows+1] = self:newRow(t) end end
 ```
 
@@ -60,7 +60,7 @@ Update all the columns, return a new row.
 
 ```lua
 function Tbl:newRow(t) 
-  for _, col in pairs(self.all) do col:add(t[col.at]) end
+  for _, col in pairs(self.cols) do col:add(t[col.at]) end
   return  Row(self,t) end
 ```
 
@@ -78,7 +78,7 @@ function Tbl:newCols(t,  what,new,all,w,x)
       if   s:find("!") 
       then self.klass = x 
       end 
-      if   s:match("[<>!]") 
+      if   s:match("[%-%+!]") 
       then self.y[#self.y+1] = x 
       else self.x[#self.x+1] = x end end end 
   return all end
@@ -88,7 +88,7 @@ Sort neighbors by distance
 
 ```lua
 function Tbl:neighbors(r1,the,cols,rows)
-  a    = {}
+  local a = {}
   for _,r2 in pairs(rows or self.rows) do
     a[#a+1] = {r1:dist(r2,the,cols) -- item1: distance
               , r2} end             -- item2: a row
@@ -100,8 +100,8 @@ Check your neighbors to find  something faraway
 
 ```lua
 function Tbl:faraway(row,the,cols,rows)
-  all = self:neighbors(row,the,cols,rows)
-  return all[the.far*all // 1][2] end
+  local all = self:neighbors(row,the,cols,rows)
+  return all[the.far*#all // 1][2] end
 ```
 
 Return

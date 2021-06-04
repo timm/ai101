@@ -1,7 +1,8 @@
 -- vim: ts=2 sw=2 sts=2 et :
 -- Simple base class that can pretty print.
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
-
+--
+-- # Thing.lua
 local Lib=require("lib")
 
 local Thing=Lib.class()

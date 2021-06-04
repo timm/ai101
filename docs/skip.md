@@ -29,3 +29,18 @@ function Skip:add(x,_)  return x end
 
 return Skip
 ```
+
+Columns we are going to ignore
+(c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
+
+Skip.lua
+
+```lua
+local Lib, Col = require("lib"),require("col")
+local Skip=Lib.class(Col)
+
+function Skip:_init(at,txt) self:super(at,txt) end
+function Skip:add(x,_)  return x end
+
+return Skip
+```

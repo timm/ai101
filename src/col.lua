@@ -2,6 +2,7 @@
 -- Routines for all columns.   
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 --
+-- # Col.lua
 -- Uses
 local Lib,Thing = require("lib"),require("thing")
 

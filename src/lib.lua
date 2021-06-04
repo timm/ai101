@@ -2,6 +2,7 @@
 -- Misc library routines   
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 --
+-- # Lib.lua
 -- Create
 local Lib={}
 

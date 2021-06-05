@@ -33,17 +33,14 @@ function Num:mid(x)    return self.mu end
 function Num:norm1(x)  return (x-self.lo)/(self.hi-self.lo+1E-32) end
 function Num:spread(x) return self.sd end
 
-function Num:discretize(other,us,them,the)
+function Num:discretize(other,all,the)
   local xy={}
   for _,x in pairs(self._all)  do xy[#xy+1] = {x,True} end
   for _,x in pairs(other._all) do xy[#xy+1] = {x,False} end
   local sd = (self.sd*self.n + other.sd*self.n) / (self.n+other.n)
   for _,bin in merge(div(xy, sd*the.cohen, (#xy)^the.enough)) do
     if not (bin.down == -1E32 and bin.up == 1E32) then
-      for klass,count in pairs(bin.also.seen) do
-        local key = {self.at, bin.down, bin.up}
-        if   klass 
-        then us[key]   = count
-        else them[key] = count end end end end end
+      for klass,n in pairs(bin.also.seen) do
+        Obs(klass,self.at,down,up,n,all) end end end end
 
 return Num

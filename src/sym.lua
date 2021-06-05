@@ -38,13 +38,10 @@ function Sym:merge(j)
   local xpect = n1/n*e1 + n2/n*e2
   if e<=xpect then return k end end
 
-function Sym:discretize(other,us,them,_)
+function Sym:discretize(other,all,_)
   for x,n in pairs(self.seen)  do 
-    k={self.at, x,x}
-    us[k] = n end
+    Obs(true,self.at,x,x,n,all) end
   for x,n in pairs(other.seen)  do 
-    k={self.at, x,x}
-    them[k] = n end
-  return us,them end
+    Obs(false,self.at,x,x,n,all) end end
 
 return Sym

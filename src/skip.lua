@@ -1,6 +1,6 @@
 -- vim: ts=2 sw=2 sts=2 et :
 -- # Skip.lua
--- Columns we are going to ignore
+-- Columns we are going to ignore.   
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 local Lib, Col = require("lib"),require("col")

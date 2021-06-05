@@ -1,6 +1,6 @@
 -- vim: ts=2 sw=2 sts=2 et :
 -- # Bin.lua
--- Divide numerics into bins
+-- Divide numerics into bins.    
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 local r=require

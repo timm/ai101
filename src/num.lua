@@ -1,6 +1,6 @@
 -- vim: ts=2 sw=2 sts=2 et :
 -- # Num.lua
--- Summarizing numeric columns.
+-- Summarizing numeric columns.   
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 local Lib,Col = require("lib"),require("col")

@@ -1,6 +1,6 @@
 -- vim: ts=2 sw=2 sts=2 et :
 -- # About.lua
--- Defaults, maybe updated via command-line
+-- Defaults, maybe updated via command-line.         
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 return require("lib").cli({

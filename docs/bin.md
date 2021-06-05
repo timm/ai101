@@ -1,6 +1,6 @@
 
 # Bin.lua
-Divide numerics into bins
+Divide numerics into bins.    
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua

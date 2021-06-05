@@ -1,6 +1,6 @@
 -- vim: ts=2 sw=2 sts=2 et :
 -- # Tbl.lua
--- Tables store rows, summarized in columns.    
+-- Tables store rows, summarized in columns.      
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 --  
 -- Tables are initialized from lists whose first item

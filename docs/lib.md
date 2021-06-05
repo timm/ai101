@@ -1,6 +1,6 @@
 
 # Lib.lua
-Misc library routines   
+Misc library routines.   
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua

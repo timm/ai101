@@ -1,6 +1,6 @@
 
 # Num.lua
-Summarizing numeric columns.
+Summarizing numeric columns.   
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua

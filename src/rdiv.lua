@@ -1,8 +1,8 @@
 -- vim: ts=2 sw=2 sts=2 et :
+-- # Rdiv.lua
 -- Recursively divide the data.
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
---
--- # Rdiv.lua
+
 local r = require
 local Lib,Thing,Tbl = r("lib"),r("thing"),r("tbl")
 

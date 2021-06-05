@@ -1,10 +1,10 @@
 
+# Sym.lua
 Summarizing symbolic columns.
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
-# Sym.lua
-
 ```lua
+
 local Lib,Col = require("lib"),require("col")
 local Sym = Lib.class(Col)
 

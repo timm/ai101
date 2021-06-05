@@ -1,8 +1,8 @@
 -- vim: ts=2 sw=2 sts=2 et :
+-- # Sym.lua
 -- Summarizing symbolic columns.
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
---
--- # Sym.lua
+
 local Lib,Col = require("lib"),require("col")
 local Sym = Lib.class(Col)
 

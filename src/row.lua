@@ -1,8 +1,7 @@
 -- vim: ts=2 sw=2 sts=2 et :
+-- # Row.lua
 -- Handling  one example in a table.
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
---
--- # Row.lua
 
 local Lib,Thing = require("lib"),require("thing")
 local Row = Lib.class(Thing)

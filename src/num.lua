@@ -1,8 +1,8 @@
 -- vim: ts=2 sw=2 sts=2 et :
+-- # Num.lua
 -- Summarizing numeric columns.
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
---
--- # Num.lua
+
 local Lib,Col = require("lib"),require("col")
 local Num = Lib.class(Col)
 

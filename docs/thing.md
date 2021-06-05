@@ -1,10 +1,10 @@
 
+# Thing.lua
 Simple base class that can pretty print.
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
-# Thing.lua
-
 ```lua
+
 local Lib=require("lib")
 
 local Thing=Lib.class()

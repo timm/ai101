@@ -1,8 +1,7 @@
 
+# Tbl.lua
 Tables store rows, summarized in columns.    
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
-
-# Tbl.lua
 
 Tables are initialized from lists whose first item
 is a list of column names. In those names,

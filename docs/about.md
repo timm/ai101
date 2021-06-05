@@ -4,11 +4,7 @@ Defaults, maybe updated via command-line
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua
-```
 
-
-
-```lua
 return require("lib").cli({
    enough=.5
   ,far=.9

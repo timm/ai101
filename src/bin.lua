@@ -1,8 +1,8 @@
 -- vim: ts=2 sw=2 sts=2 et :
+-- # Bin.lua
 -- Divide numerics into bins
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
---
--- # Bin.lua
+
 local r=require
 local Lib,Thing,Sym = r("lib"),r("thing"),r("sym")
 local Bin = Lib.class(Thing)

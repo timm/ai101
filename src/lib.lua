@@ -1,8 +1,8 @@
 -- vim: ts=2 sw=2 sts=2 et :
+-- # Lib.lua
 -- Misc library routines   
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
---
--- # Lib.lua
+
 -- Create
 local Lib={}
 

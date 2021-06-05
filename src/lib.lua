@@ -47,7 +47,7 @@ function Lib.oo(t,pre,     seen,s,sep,keys, nums)
       if not (type(k)=='string' and k:match("^_")) then
         nums = nums and type(k) == 'number'
         keys[#keys+1] = k  end end end 
-  table.sort(keys)
+  --table.sort(keys)
   for _, k in pairs(keys) do
     local v = t[k]
     if      type(v) == 'table'    then v= Lib.oo(v,pre,seen) 

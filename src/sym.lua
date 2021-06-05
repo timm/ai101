@@ -19,12 +19,27 @@ function Sym:ent(   e,p)
   e = 0
   for _,n in pairs(self.seen) do 
     p = n/self.n
-    e = e-p*math.log(p)/math.log(2) end 
+    e = e - p*math.log(p)/math.log(2) end 
   return e end
 
 function Sym:mid(x)     return self.mode  end
 function Sym:norm1(x)   return x end
 function Sym:dist1(x,y) return x==y and 0 or 1 end
 function Sym:spread()   return self:ent() end
+
+function Sym:merge(j)
+  local k = Sym(self.at, self.txt)
+  for _,seen1 in pairs({self.seen, j.seen}) do
+    for x,n in pairs(seen1) do 
+      k:add(x,n) end end
+  local e1,n1 = self:ent(), self.n
+  local e2,n2 = j:ent(),    j.n
+  local e ,n  = k:ent(),    k.n
+  local xpect = n1/n*e1 + n2/n*e2
+  if e<=xpect then return k end
+end
+
+function Sym:div()
+end
 
 return Sym

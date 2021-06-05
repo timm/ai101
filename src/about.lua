@@ -8,6 +8,7 @@ return require("lib").cli({
    enough=.5
   ,far=.9
   ,loud=true
+  ,cohen=.3
   ,k=2
   ,m=1
   ,p=2

@@ -36,10 +36,15 @@ function Sym:merge(j)
   local e2,n2 = j:ent(),    j.n
   local e ,n  = k:ent(),    k.n
   local xpect = n1/n*e1 + n2/n*e2
-  if e<=xpect then return k end
-end
+  if e<=xpect then return k end end
 
-function Sym:div()
-end
+function Sym:discretize(other,us,them,_)
+  for x,n in pairs(self.seen)  do 
+    k={self.at, x,x}
+    us[k] = n end
+  for x,n in pairs(other.seen)  do 
+    k={self.at, x,x}
+    them[k] = n end
+  return us,them end
 
 return Sym

@@ -1,7 +1,4 @@
 
-# sym.lua 
-
-
 Summarizing symbolic columns.
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 

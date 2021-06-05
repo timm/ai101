@@ -1,7 +1,4 @@
 
-# thing.lua 
-
-
 Simple base class that can pretty print.
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 

@@ -1,7 +1,4 @@
 
-# col.lua 
-
-
 Routines for all columns.   
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 

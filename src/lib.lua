@@ -13,6 +13,10 @@ function Lib.the(  new)
   return new end
 
 -- ## Maths 
+-- Constants
+Lib.e = math.exp(1)
+Lib.pi = math.pi
+
 -- Round
 
 function Lib.round(num, numDecimalPlaces)

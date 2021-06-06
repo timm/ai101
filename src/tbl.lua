@@ -70,6 +70,10 @@ function Tbl:goals()
   return out
 end
 
+function Tbl:__lt(other)
+  return Row(self, self:mid()) < Row(self,other:mid())
+end
+
 function Tbl:mid() 
   local out={}
   for _,col in pairs(self.cols) do out[#out+1] = col:mid() end

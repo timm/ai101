@@ -38,6 +38,7 @@ local function rdiv(t,the,cols)
          recurse(right,lvl+1)
       end end
   recurse(t.rows,0)
+  table.sort(all)
   return all end
 
 return  rdiv

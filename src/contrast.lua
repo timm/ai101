@@ -34,17 +34,8 @@ local function contrast(t,the,cols)
   cols = cols or t.x
   local all    = {}
   local enough = (#t.rows)^the.enough
-  local function divide(t1,lvl)
-    -- debugging
-    if   the.loud 
-    then local pre="|.. ";print(pre:rep(lvl)..tostring(#t1.rows)) end
-    -- termination case
-    if   #t1.rows < 2*enough 
-    then all[#all+1] = t1
-         return
-    end
-    -- recursive case
-    local zero,one,two,c,a,b, mid,left,right,lefts,rights
+  local function divide(t1)
+    local zero,one,two,c,a,b, lefts,rights
     zero = Lib.any(t1.rows)
     one  = t:faraway(zero, the, cols, t1.rows)
     two  = t:faraway(one,  the, cols, t1.rows)
@@ -52,28 +43,32 @@ local function contrast(t,the,cols)
     for _,row in pairs(t1.rows) do
       a  = row:dist(one, the, cols)
       b  = row:dist(two, the, cols)
-      row.x = (a^2 + c^2 - b^2)/(2*c) 
+      row.divx = (a^2 + c^2 - b^2)/(2*c) 
     end
-    table.sort(t1.rows, function(y,z) return y.x < z.x end)
-    mid, left, right = #t1.rows//2, {}, {}
+    table.sort(t1.rows, function(y,z) return y.divx < z.divx end)
     lefts,rights = t:clone(), t:clone()
     for n,row in pairs(t1.rows) do
-      if   n <= mid 
-      then lefts:add(row)
-      else rights:add(row) 
-      end  
+      (n <= #t1.rows //2 and lefts or rights):add(row) 
     end
-    return lefts,rights
+    if one < two 
+    then return lefts,rights
+    else return rights,lefts
+    end
   end 
-  local function recurse(t1,lvl,     l,r,best,t2)
-    if #t1.rows > 2*enough then
-      l,r = divide(t1,lvl)
-      best= rank(#l.rows, #r.rows, 
-                 discretize(l,r,the))[1][2]
+  local function recurse(t1,lvl,     bests,rests,best,t2)
+    if   the.loud 
+    then local pre="|.. ";print(pre:rep(lvl)..tostring(#t1.rows)) 
+    end
+    if #t1.rows > enough then
+      bests,rests = divide(t1,lvl)
+      best= rank(#bests.rows, #rests.rows, 
+                 discretize(bests,rests,the))[1][2]
       t2 = t1:clone(best:selects(t1.rows))
-      print(tostring(best))
-      Lib.o(t2:goals())
-      if #t2.rows < #t1.rows then recurse(t2, lvl+1) end end
+      if #t2.rows < #t1.rows then
+        print(best)
+        Lib.o(t2:goals())
+        recurse(t2, lvl+1) end end
+    all[1+#all] = t1
   end
     
   --- main -------------

@@ -4,11 +4,15 @@
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 local Lib,Thing = require("lib"),require("thing")
+
+
+-- Create
 local Row = Lib.class(Thing)
 
 function Row:_init(t,cells)
   self._tab, self.cells = t,cells end
 
+-- Distance
 function Row:dist(other,the,cols)
   local d,n=0,1E-32
   for _,col in pairs(cols or self._tab.x) do
@@ -17,4 +21,16 @@ function Row:dist(other,the,cols)
     n = n + 1 end
   return (d/n)^the.p end
 
+
+-- dominate
+function Row:__lt(other,   s1,s2,n,a,b,s1,s2)
+  s1, s2, n = 0, 0, #self._tab.y
+  for _,col in pairs(self._tab.y) do
+    a   = col:norm(self.cells[col.at])
+    b   = col:norm(other.cells[col.at])
+    s1  = s1 - Lib.e^(col.w * (a - b) / n)
+    s2  = s2 - Lib.e^(col.w * (b - a) / n) end
+  return s1 / n < s2 / n end
+
+-- Export
 return Row

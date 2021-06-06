@@ -13,6 +13,7 @@ local function _t1()
   for _,t1 in  pairs(rdiv(t,the,t.y)) do
     print(Lib.oo(Lib.rs(t1:goals())), "found")
   end
+  print("----")
   print(Lib.oo(Lib.rs(t:goals())), "base")
 end
 

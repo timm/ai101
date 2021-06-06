@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-Lua=${1:-lua}
+What=${1:-lua}
+Who=${2:-"*.lua"}
 
 bad=0
-for f in *.lua; do 
-  echo -en '\E[47;31m'"\033[1m-- $f\033[0m"   # Red
+for f in $Who; do 
   echo ""
-  $Lua $f || bad=1
+  tput bold;tput setaf 3; echo "-- $f";tput sgr0
+  echo $What $f || bad=1
 done
 exit $bad

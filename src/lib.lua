@@ -1,7 +1,8 @@
 -- vim: ts=2 sw=2 sts=2 et :
--- Misc library routines   
+-- # Lib.lua
+-- Misc library routines.   
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
---
+
 -- Create
 local Lib={}
 
@@ -17,6 +18,9 @@ function Lib.the(  new)
 function Lib.round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
    return math.floor(num * mult + 0.5) / mult end
+
+function Lib.rs(t,r)
+  return Lib.map(t, function (z) return Lib.round(z,r or 2) end) end
 
 -- ## Printing  
 -- String formatting
@@ -43,7 +47,7 @@ function Lib.oo(t,pre,     seen,s,sep,keys, nums)
       if not (type(k)=='string' and k:match("^_")) then
         nums = nums and type(k) == 'number'
         keys[#keys+1] = k  end end end 
-  table.sort(keys)
+  --table.sort(keys)
   for _, k in pairs(keys) do
     local v = t[k]
     if      type(v) == 'table'    then v= Lib.oo(v,pre,seen) 
@@ -81,7 +85,7 @@ do
   local mult  = 16807.0
   function Lib.rand()  seed= (mult*seed)%mod; return seed/mod end 
   function Lib.seed(n) seed= n and n or seed0 end 
-  function Lib.any(a) return a[Lib.rand() * #a // 1] end
+  function Lib.any(a) return a[1 + Lib.rand() * #a // 1] end
 end
 
 -- ## Meta functions

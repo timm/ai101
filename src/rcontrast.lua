@@ -1,9 +1,7 @@
-
-# Rdiv.lua
-Recursively divide the data.   
-(c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
-
-```lua
+-- vim: ts=2 sw=2 sts=2 et :
+-- # Contrast.lua
+-- Recursively prune data using  min maximal delta between halves.  
+-- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 local r = require
 local Lib,Thing,Tbl = r("lib"),r("thing"),r("tbl")
@@ -43,4 +41,3 @@ local function rdiv(t,the,cols)
   return all end
 
 return  rdiv
-```

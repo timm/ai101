@@ -1,5 +1,6 @@
 
-Summarizing numeric columns.
+# Num.lua
+Summarizing numeric columns.   
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua
@@ -10,9 +11,11 @@ local Num = Lib.class(Col)
 function Num:_init(at,txt) 
   self:super(at,txt)
   self.mu,self.m2,self.lo,self.hi = 0,0,1E31,-1E31 
+  self._all = {}
 end
 
 function Num:add1(x,_) 
+  self._all[(#self._all)+1] = x
   local d = x - self.mu
   self.mu = self.mu + d/self.n
   self.m2 = self.m2 + d*(x - self.mu)
@@ -31,6 +34,16 @@ function Num:dist1(x,y)
 function Num:mid(x)    return self.mu end
 function Num:norm1(x)  return (x-self.lo)/(self.hi-self.lo+1E-32) end
 function Num:spread(x) return self.sd end
+
+function Num:discretize(other,all,the)
+  local xy={}
+  for _,x in pairs(self._all)  do xy[#xy+1] = {x,True} end
+  for _,x in pairs(other._all) do xy[#xy+1] = {x,False} end
+  local sd = (self.sd*self.n + other.sd*self.n) / (self.n+other.n)
+  for _,bin in merge(div(xy, sd*the.cohen, (#xy)^the.enough)) do
+    if not (bin.down == -1E32 and bin.up == 1E32) then
+      for klass,n in pairs(bin.also.seen) do
+        Obs(klass,self.at,down,up,n,all) end end end end
 
 return Num
 ```

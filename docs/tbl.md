@@ -1,5 +1,6 @@
 
-Tables store rows, summarized in columns.    
+# Tbl.lua
+Tables store rows, summarized in columns.      
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 Tables are initialized from lists whose first item
@@ -37,8 +38,9 @@ Create a new table the mimics the current structure
 
 ```lua
 function Tbl:clone(rows)
-  new  = Tbl({self.header})
-  for row in pairs(rows or {}) do new:add(row)  end
+  local new  = Tbl()
+  new:add(self.header)
+  for _,row in pairs(rows or {}) do new:add(row)  end
   return new end
 ```
 
@@ -78,6 +80,18 @@ function Tbl:newCols(t,  what,new,all,w,x)
       then self.y[#self.y+1] = x 
       else self.x[#self.x+1] = x end end end 
   return all end
+
+function Tbl:goals() 
+  local out={}
+  for _,col in pairs(self.y) do out[#out+1] = col:mid() end
+  return out
+end
+
+function Tbl:mid() 
+  local out={}
+  for _,col in pairs(self.cols) do out[#out+1] = col:mid() end
+  return out
+end
 ```
 
 Sort neighbors by distance
@@ -87,7 +101,7 @@ function Tbl:neighbors(r1,the,cols,rows)
   local a = {}
   for _,r2 in pairs(rows or self.rows) do
     a[#a+1] = {r1:dist(r2,the,cols) -- item1: distance
-              , r2} end             -- item2: a row
+              ,r2} end              -- item2: a row
   table.sort(a, function (y,z) return y[1]<z[1] end)
   return a end
 ```

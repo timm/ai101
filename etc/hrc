@@ -20,8 +20,7 @@ doc() {
    for f in *.lua; do 
      g=$Etc/docs/${f%.lua}.md
      echo "# $f ..." 
-     (echo ""; echo "# $f " ; echo "") > $g
-     gawk -f $Etc/etc/prep.awk $f >> $g
+     gawk -f $Etc/etc/prep.awk $f > $g
    done
    sep=""
    echo "" > $Etc/docs/_includes/localtoc.html

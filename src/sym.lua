@@ -3,7 +3,8 @@
 -- Summarizing symbolic columns.   
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
-local Lib,Col = require("lib"),require("col")
+local r=require
+local Lib,Col,Count = r("lib"),r("col"),r("count")
 local Sym = Lib.class(Col)
 
 function Sym:_init(at,txt) 
@@ -38,10 +39,10 @@ function Sym:merge(j)
   local xpect = n1/n*e1 + n2/n*e2
   if e<=xpect then return k end end
 
-function Sym:discretize(other,all,_)
+function Sym:discretize(other,counts,_)
   for x,n in pairs(self.seen)  do 
-    Obs(true,self.at,x,x,n,all) end
+    Count(true, self.txt,self.at,x,x,n,counts) end
   for x,n in pairs(other.seen)  do 
-    Obs(false,self.at,x,x,n,all) end end
+    Count(false,self.txt,self.at,x,x,n,counts) end end
 
 return Sym

@@ -22,10 +22,7 @@ local function _t2()
   local t,the = _t1()
   for n,row in pairs(t.rows) do
     local l=t:neighbors(row,the)
-    print("")
-    print(Lib.oo(l[1][2].cells), r2(l[1][1]))
-    print(Lib.oo(l[2][2].cells), r2(l[2][1]))
-    print(Lib.oo(l[#l][2].cells),r2(l[#l][1]))
+    assert(l[1][1] < l[#l][1])
   end
 end
 

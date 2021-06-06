@@ -3,13 +3,14 @@
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 package.path = '../src/?.lua;' .. package.path 
-local Lib,Obs=require("lib"),require("obs")
+local Lib,Count=require("lib"),require("count")
 
 do
   local all={}
-  local x=Obs(true,4,6,7,10,all)
-  local y=Obs(true,4,6,7,20,all)
-  Lib.o(all)
+  local x=Count(true,4,6,7,10,all)
+  local y=Count(true,4,6,7,20,all)
+  assert(x==y)
+  assert(#all[true] ==2)
 end
 
 Lib.rogues()

@@ -4,7 +4,7 @@
 
 package.path = '../src/?.lua;' .. package.path 
 local Lib=require("lib")
-local o,isa,rand = Lib.o, Lib.isa, Lib.rand
+local o,isa,rand,fmt = Lib.o, Lib.isa, Lib.rand,Lib.fmt
 local rand,seed,round = Lib.rand, Lib.seed, Lib.round
 local csv = Lib.csv
 
@@ -32,5 +32,9 @@ do
     assert(#row == 5," size of rows")
     if  n> 1 then
       assert(type(row[2])=="number","coercion") end end end 
+
+do
+  print(fmt("%s %5.2f",1,2))
+end
 
 Lib.rogues()

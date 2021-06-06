@@ -26,7 +26,7 @@ function Lib.rs(t,r)
 -- String formatting
 
 function Lib.fmt (todo, ...)
-  return io.write(string.format(todo, unpack(arg))) end
+  return todo:format(...) end
 
 -- Concat one table
 function Lib.cat(t,sep) return table.concat(t,sep or ", ") end

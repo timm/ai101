@@ -8,7 +8,7 @@ Columns we are going to ignore.
 local Lib, Col = require("lib"),require("col")
 local Skip=Lib.class(Col)
 
-function Skip:_init(at,txt) self:super(at,txt) end
+function Skip:_init(at,txt) self:super(at,txt); self.skip=true; end
 function Skip:add(x,_)  return x end
 
 return Skip

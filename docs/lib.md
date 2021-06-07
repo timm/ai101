@@ -22,6 +22,13 @@ function Lib.the(  new)
 ```
 
 ## Maths 
+Constants
+
+```lua
+Lib.e = math.exp(1)
+Lib.pi = math.pi
+```
+
 Round
 
 ```lua
@@ -40,7 +47,7 @@ String formatting
 ```lua
 
 function Lib.fmt (todo, ...)
-  return io.write(string.format(todo, unpack(arg))) end
+  return todo:format(...) end
 ```
 
 Concat one table

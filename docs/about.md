@@ -8,12 +8,12 @@ Defaults, maybe updated via command-line.
 return require("lib").cli({
    enough=.5
   ,far=.9
-  ,loud=true
+  ,loud=false
   ,cohen=.3
   ,k=2
   ,m=1
   ,p=2
-  ,data="data/aa.csv"
+  ,data="data/auto93.csv"
   ,seed=10013
 })
 ```

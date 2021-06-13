@@ -6,10 +6,10 @@ package.path = '../src/?.lua;' .. package.path
 local r=require
 local  Tbl, Lib,rdiv = r("tbl"), r("lib"),r("rdiv")
 
-local function _t1()
+local function _t1(data)
   local t=Tbl()
-  for row in Lib.csv("data/auto93.csv") do t:add(row) end
   local the=Lib.the()
+  for row in Lib.csv(data or the.data or 'data/auto93.csv') do t:add(row) end
   for _,t1 in  pairs(rdiv(t,the,t.y)) do
     print(Lib.oo(Lib.rs(t1:goals())), "found")
   end

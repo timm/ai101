@@ -65,7 +65,6 @@ local function contrast(t,the,cols)
                  discretize(bests,rests,the))[1][2]
       t2 = t1:clone(best:selects(t1.rows))
       if #t2.rows < #t1.rows then
-        print(best)
         Lib.o(t2:goals())
         recurse(t2, lvl+1) end end
     all[1+#all] = t1

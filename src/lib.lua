@@ -32,6 +32,9 @@ function Lib.rs(t,r)
 function Lib.fmt (todo, ...)
   return todo:format(...) end
 
+function Lib.say (todo, ...)
+  return print(todo:format(...)) end
+
 -- Concat one table
 function Lib.cat(t,sep) return table.concat(t,sep or ", ") end
 

@@ -10,6 +10,7 @@ local Skip=Lib.class(Col)
 
 function Skip:_init(at,txt) self:super(at,txt); self.skip=true; end
 function Skip:add(x,_)  return x end
+function Skip:mid()  return "?" end
 
 return Skip
 ```

@@ -1,3 +1,3 @@
 Etc=$(dirname $(cd $( dirname "${BASH_SOURCE[0]}" ) && pwd ))
 
-Etc="$Etc" bash --init-file $Etc/etc/hrc -i
+Logo=$1 Etc="$Etc" bash --init-file $Etc/etc/hrc -i

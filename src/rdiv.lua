@@ -5,8 +5,9 @@
 
 local r = require
 local Lib,Thing,Tbl = r("lib"),r("thing"),r("tbl")
+local  div,rdiv
 
-local function div(rows,t,the,cols)
+function div(rows,t,the,cols)
   local zero,one,two,c,a,b,mid,left,right
   zero = Lib.any(rows)
   one  = t:faraway(zero, the, cols, rows)
@@ -15,9 +16,9 @@ local function div(rows,t,the,cols)
   for _,row in pairs(rows) do
     a  = row:dist(one, the, cols)
     b  = row:dist(two, the, cols)
-    row.x = (a^2 + c^2 - b^2)/(2*c) 
+    row.divx = (a^2 + c^2 - b^2)/(2*c) 
   end
-  table.sort(rows, function(y,z) return y.x < z.x end)
+  table.sort(rows, function(y,z) return y.divx < z.divx end)
   mid, left, right = #rows//2, {}, {}
   for n,row in pairs(rows) do
     if   n <= mid 
@@ -25,18 +26,19 @@ local function div(rows,t,the,cols)
     else right[#right+1] = row end end
   return left,right end
 
-local function recurse(rows,lvl,t,the,all,cols,enough)
+function rdiv(rows,lvl,t,the,all,cols,enough)
+  local pre, left,right
   if   the.loud 
-  then local pre="|.. ";print(pre:rep(lvl)..tostring(#rows)) 
+  then pre="|.. ";print(pre:rep(lvl)..tostring(#rows)) 
   end
   if   #rows < 2*enough 
   then all[#all+1] = t:clone(rows)
-  else local left,right= div(rows,t,the,cols) 
-       recurse(left, lvl+1,t,the,all,cols,enough) 
-       recurse(right,lvl+1,t,the,all,cols,enough) end  end 
+  else left,right= div(rows,t,the,cols) 
+       rdiv(left, lvl+1,t,the,all,cols,enough) 
+       rdiv(right,lvl+1,t,the,all,cols,enough) end  end 
 
 return function (t,the,cols)
   local all = {}
-  recurse(t.rows,0,t,the,all,cols or t.x,(#t.rows)^the.enough)
+  rdiv(t.rows,0,t,the,all,cols or t.x,(#t.rows)^the.enough)
   table.sort(all)
   return all end

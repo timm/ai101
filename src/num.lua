@@ -41,12 +41,13 @@ function Num:spread(x) return self.sd end
 -- has similar class distributions to the parts.
 function Num:discretize(other,counts,the)
   -- initial a list of pairs
-  local xy={}
+  local xy,sd,bins
+  xy={}
+  sd = (self.sd*self.n + other.sd*self.n) / (self.n+other.n)
   for _,x in pairs(self._all)  do xy[#xy+1] = {x,true} end
   for _,x in pairs(other._all) do xy[#xy+1] = {x,false} end
   -- split the list
-  local sd = (self.sd*self.n + other.sd*self.n) / (self.n+other.n)
-  local bins= Bin.div(xy, sd*the.cohen, (#xy)^the.enough)
+  bins= Bin.div(xy, sd*the.cohen, (#xy)^the.enough)
   if #bins>1 then
     -- return one Count per bin.
     for _,bin in pairs(bins) do

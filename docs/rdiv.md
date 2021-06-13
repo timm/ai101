@@ -7,9 +7,17 @@ Recursively divide the data.
 
 local r = require
 local Lib,Thing,Tbl = r("lib"),r("thing"),r("tbl")
+local div,rdiv
+```
 
-local function div(rows,t,the,cols)
-  local zero,one,two,c,a,b,mid,left,right
+To divide the data, 
+project everyone onto a line drawn between
+two distant points. Then split the points
+at the median projection value.
+
+```lua
+function div(rows,t,the,cols,    
+             zero,one,two,c,a,b,mid,left,right)
   zero = Lib.any(rows)
   one  = t:faraway(zero, the, cols, rows)
   two  = t:faraway(one,  the, cols, rows)
@@ -17,29 +25,40 @@ local function div(rows,t,the,cols)
   for _,row in pairs(rows) do
     a  = row:dist(one, the, cols)
     b  = row:dist(two, the, cols)
-    row.x = (a^2 + c^2 - b^2)/(2*c) 
+    row.divx = (a^2 + c^2 - b^2)/(2*c) 
   end
-  table.sort(rows, function(y,z) return y.x < z.x end)
+  table.sort(rows, function(y,z) return y.divx < z.divx end)
   mid, left, right = #rows//2, {}, {}
   for n,row in pairs(rows) do
     if   n <= mid 
     then left[ #left +1] = row
     else right[#right+1] = row end end
   return left,right end
+```
 
-local function recurse(rows,lvl,t,the,all,cols,enough)
+If there are two few rows, then make a new leaf cluster.
+Else, divide the data into two and recurse on each half.
+
+```lua
+function rdiv(rows,lvl,t,the,leafs,cols,enough,
+              pre, left,right)
   if   the.loud 
-  then local pre="|.. ";print(pre:rep(lvl)..tostring(#rows)) 
+  then pre="|.. ";print(pre:rep(lvl)..tostring(#rows)) 
   end
   if   #rows < 2*enough 
-  then all[#all+1] = t:clone(rows)
-  else local left,right= div(rows,t,the,cols) 
-       recurse(left, lvl+1,t,the,all,cols,enough) 
-       recurse(right,lvl+1,t,the,all,cols,enough) end  end 
+  then leafs[#leafs+1] = t:clone(rows)
+  else left,right= div(rows,t,the,cols) 
+       rdiv(left, lvl+1,t,the,leafs,cols,enough) 
+       rdiv(right,lvl+1,t,the,leafs,cols,enough) end  end 
+```
 
-return function (t,the,cols)
-  local all = {}
-  recurse(t.rows,0,t,the,all,cols or t.x,(#t.rows)^the.enough)
-  table.sort(all)
-  return all end
+Returns the leaf clusters, sorted by their median value
+(so the first leaf is much better than the last leaf).
+
+```lua
+return function (t,the,cols,      leafs)
+  leafs={}
+  rdiv(t.rows,0,t,the,leafs,cols or t.x,(#t.rows)^the.enough)
+  table.sort(leafs)
+  return leafs end
 ```

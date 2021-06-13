@@ -7,6 +7,10 @@ local r = require
 local Lib,Thing,Tbl = r("lib"),r("thing"),r("tbl")
 local div,rdiv
 
+-- To divide the data, 
+-- project everyone onto a line drawn between
+-- two distant points. Then split the points
+-- at the median projection value.
 function div(rows,t,the,cols,    
              zero,one,two,c,a,b,mid,left,right)
   zero = Lib.any(rows)
@@ -26,19 +30,23 @@ function div(rows,t,the,cols,
     else right[#right+1] = row end end
   return left,right end
 
-function rdiv(rows,lvl,t,the,all,cols,enough,
+-- If there are two few rows, then make a new leaf cluster.
+-- Else, divide the data into two and recurse on each half.
+function rdiv(rows,lvl,t,the,leafs,cols,enough,
               pre, left,right)
   if   the.loud 
   then pre="|.. ";print(pre:rep(lvl)..tostring(#rows)) 
   end
   if   #rows < 2*enough 
-  then all[#all+1] = t:clone(rows)
+  then leafs[#leafs+1] = t:clone(rows)
   else left,right= div(rows,t,the,cols) 
-       rdiv(left, lvl+1,t,the,all,cols,enough) 
-       rdiv(right,lvl+1,t,the,all,cols,enough) end  end 
+       rdiv(left, lvl+1,t,the,leafs,cols,enough) 
+       rdiv(right,lvl+1,t,the,leafs,cols,enough) end  end 
 
-return function (t,the,cols,      all)
-  all={}
-  rdiv(t.rows,0,t,the,all,cols or t.x,(#t.rows)^the.enough)
-  table.sort(all)
-  return all end
+-- Returns the leaf clusters, sorted by their median value
+-- (so the first leaf is much better than the last leaf).
+return function (t,the,cols,      leafs)
+  leafs={}
+  rdiv(t.rows,0,t,the,leafs,cols or t.x,(#t.rows)^the.enough)
+  table.sort(leafs)
+  return leafs end

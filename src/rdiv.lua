@@ -5,7 +5,7 @@
 
 local r = require
 local Lib,Thing,Tbl = r("lib"),r("thing"),r("tbl")
-local  div,rdiv
+local div,rdiv
 
 function div(rows,t,the,cols,    
              zero,one,two,c,a,b,mid,left,right)

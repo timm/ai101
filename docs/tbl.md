@@ -81,7 +81,11 @@ function Tbl:newCols(t,  what,new,all,w,x)
       then self.y[#self.y+1] = x 
       else self.x[#self.x+1] = x end end end 
   return all end
+```
 
+Sort rows via domination.
+
+```lua
 function Tbl:__lt(other)
   return Row(self, self:mid()) < Row(self,other:mid())
 end

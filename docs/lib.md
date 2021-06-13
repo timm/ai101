@@ -128,11 +128,14 @@ do
 end
 ```
 
-## Meta functions
-Return it
+## Table functions
+Slice a table
 
 ```lua
-function Lib.same(x) return x end
+function Lib.slice(t, lo, hi, step,   out)
+  out={}
+  for i = lo or 1, hi or #t, step or 1 do out[#out+1] = t[i] end
+  return out end
 ```
 
 Modify a list of it.
@@ -151,7 +154,25 @@ function Lib.copy(t)
   return type(t) ~= 'table' and t or Lib.map(t,Lib.copy) end
 ```
 
-Report rogie locals
+Sort on some field
+
+```lua
+function Lib.sorted(t,k,      f)
+  if   k
+  then table.sort(t, function (x,y) return x[k] < y[k] end)
+  else table.sort(t)
+  end
+  return t end 
+```
+
+## Meta functions
+Return it
+
+```lua
+function Lib.same(x) return x end
+```
+
+Report rogue locals
 
 ```lua
 function Lib.rogues(    skip)

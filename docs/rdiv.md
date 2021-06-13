@@ -4,36 +4,10 @@ Recursively divide the data.
 (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
 
 ```lua
-
 local r = require
 local Lib,Thing,Tbl = r("lib"),r("thing"),r("tbl")
-local div,rdiv
-```
+local rdiv
 
-To divide the data, 
-project everyone onto a line drawn between
-two distant points. Then split the points
-at the median projection value.
-
-```lua
-function div(rows,t,the,cols,    
-             zero,one,two,c,a,b,mid,left,right)
-  zero = Lib.any(rows)
-  one  = t:faraway(zero, the, cols, rows)
-  two  = t:faraway(one,  the, cols, rows)
-  c    = one:dist(two, the, cols)
-  for _,row in pairs(rows) do
-    a  = row:dist(one, the, cols)
-    b  = row:dist(two, the, cols)
-    row.divx = (a^2 + c^2 - b^2)/(2*c) 
-  end
-  table.sort(rows, function(y,z) return y.divx < z.divx end)
-  mid, left, right = #rows//2, {}, {}
-  for n,row in pairs(rows) do
-    if   n <= mid 
-    then left[ #left +1] = row
-    else right[#right+1] = row end end
-  return left,right end
 ```
 
 If there are two few rows, then make a new leaf cluster.
@@ -47,7 +21,7 @@ function rdiv(rows,lvl,t,the,leafs,cols,enough,
   end
   if   #rows < 2*enough 
   then leafs[#leafs+1] = t:clone(rows)
-  else left,right= div(rows,t,the,cols) 
+  else left,right= t:div2(the,cols,rows)
        rdiv(left, lvl+1,t,the,leafs,cols,enough) 
        rdiv(right,lvl+1,t,the,leafs,cols,enough) end  end 
 ```

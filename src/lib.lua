@@ -96,6 +96,12 @@ do
 end
 
 -- ## Table functions
+-- Slice a table
+function Lib.slice(t, lo, hi, step,   out)
+  out={}
+  for i = lo or 1, hi or #t, step or 1 do out[#out+1] = t[i] end
+  return out end
+
 -- Modify a list of it.
 function Lib.map(a,f,     b)
   b, f = {}, f or Lib.same

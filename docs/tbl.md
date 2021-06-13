@@ -21,6 +21,7 @@ Requires...
 local r = require 
 local Lib,Thing,Row = r("lib"),r("thing"),r("row")
 local Skip,Num,Sym  = r("skip"),r("num"),r("sym")
+local map,slice,sorted=Lib.map,Lib.slice, Lib.sorted
 ```
 
 Create
@@ -37,8 +38,8 @@ function Tbl:_init(rows)
 Create a new table the mimics the current structure
 
 ```lua
-function Tbl:clone(rows)
-  local new  = Tbl()
+function Tbl:clone(rows,       new)
+  new  = Tbl()
   new:add(self.header)
   for _,row in pairs(rows or {}) do new:add(row)  end
   return new end
@@ -81,28 +82,25 @@ function Tbl:newCols(t,  what,new,all,w,x)
       else self.x[#self.x+1] = x end end end 
   return all end
 
-function Tbl:goals() 
-  local out={}
-  for _,col in pairs(self.y) do out[#out+1] = col:mid() end
-  return out
-end
-
 function Tbl:__lt(other)
   return Row(self, self:mid()) < Row(self,other:mid())
 end
+```
 
-function Tbl:mid() 
-  local out={}
-  for _,col in pairs(self.cols) do out[#out+1] = col:mid() end
-  return out
-end
+Return the mid values of some columns
+
+```lua
+function Tbl:goals() 
+  return self:mid(self.y) end
+function Tbl:mid(cols) 
+  return map(cols or self.cols, function (c) return c:mid() end) end
 ```
 
 Sort neighbors by distance
 
 ```lua
-function Tbl:neighbors(r1,the,cols,rows)
-  local a = {}
+function Tbl:neighbors(r1,the,cols,rows,       a)
+  a = {}
   for _,r2 in pairs(rows or self.rows) do
     a[#a+1] = {r1:dist(r2,the,cols) -- item1: distance
               ,r2} end              -- item2: a row
@@ -113,9 +111,29 @@ function Tbl:neighbors(r1,the,cols,rows)
 Check your neighbors to find  something faraway
 
 ```lua
-function Tbl:faraway(row,the,cols,rows)
-  local all = self:neighbors(row,the,cols,rows)
+function Tbl:faraway(row,the,cols,rows,      all)
+  all = self:neighbors(row,the,cols,rows)
   return all[the.far*#all // 1][2] end
+```
+
+To divide the data, 
+project all points onto a line drawn between
+two distant points. Then split the points
+at the median projection value.
+
+```lua
+function Tbl:div2(the,cols,rows,         one,two,c,a,b,mid)
+  one  = self:faraway(Lib.any(rows), the, cols, rows)
+  two  = self:faraway(one,           the, cols, rows)
+  c    = one:dist(two, the, cols)
+  for _,row in pairs(rows) do
+    a  = row:dist(one, the, cols)
+    b  = row:dist(two, the, cols)
+    row.projection = (a^2 + c^2 - b^2)/(2*c) 
+  end
+  rows = sorted(rows,"projection")
+  mid  = #rows//2
+  return slice(rows,1,mid), slice(rows,mid+1) end
 ```
 
 Return

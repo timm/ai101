@@ -2,13 +2,13 @@
 -- # Rdiv.lua
 -- Recursively divide the data.   
 -- (c) 2021 Tim Menzies (timm@ieee.org) unlicense.org
-
 local r = require
 local Lib,Thing,Tbl = r("lib"),r("thing"),r("tbl")
+local sorted,push=Lib.sorted,table.insert
 local div,rdiv
 
 -- To divide the data, 
--- project everyone onto a line drawn between
+-- project all points onto a line drawn between
 -- two distant points. Then split the points
 -- at the median projection value.
 function div(rows,t,the,cols,    
@@ -20,14 +20,11 @@ function div(rows,t,the,cols,
   for _,row in pairs(rows) do
     a  = row:dist(one, the, cols)
     b  = row:dist(two, the, cols)
-    row.divx = (a^2 + c^2 - b^2)/(2*c) 
+    row.projection = (a^2 + c^2 - b^2)/(2*c) 
   end
-  table.sort(rows, function(y,z) return y.divx < z.divx end)
   mid, left, right = #rows//2, {}, {}
-  for n,row in pairs(rows) do
-    if   n <= mid 
-    then left[ #left +1] = row
-    else right[#right+1] = row end end
+  for n,row in pairs(sorted(rows,"projection")) do
+    push(n <= mid and left or right,row) end
   return left,right end
 
 -- If there are two few rows, then make a new leaf cluster.

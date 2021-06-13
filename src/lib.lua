@@ -95,10 +95,7 @@ do
   function Lib.any(a) return a[1 + Lib.rand() * #a // 1] end
 end
 
--- ## Meta functions
--- Return it
-function Lib.same(x) return x end
-
+-- ## Table functions
 -- Modify a list of it.
 function Lib.map(a,f,     b)
   b, f = {}, f or Lib.same
@@ -109,7 +106,19 @@ function Lib.map(a,f,     b)
 function Lib.copy(t) 
   return type(t) ~= 'table' and t or Lib.map(t,Lib.copy) end
 
--- Report rogie locals
+-- Sort on some field
+function Lib.sorted(t,k,      f)
+  if   k
+  then table.sort(t, function (x,y) return x[k] < y[k] end)
+  else table.sort(t)
+  end
+  return t end 
+
+-- ## Meta functions
+-- Return it
+function Lib.same(x) return x end
+
+-- Report rogue locals
 function Lib.rogues(    skip)
   skip = {
     jit=true, utf8=true, math=true, package=true, table=true,

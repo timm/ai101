@@ -255,31 +255,25 @@ the `ml` table itself.
 
 ```lua
 local function import(t,...)
-    local other
-    -- explicit table, or current environment
-    -- this isn't quite right - we won't get the calling module's _ENV
-    -- this way. But it does prevent execution of the not-implemented setfenv.
-    t = t or _ENV or getfenv(2)
-    local libs = {}
-    if select('#',...)==0 then -- default is to pull in this library!
-        libs[1] = ml
-    else
-        for i = 1,select('#',...) do
-            local lib = select(i,...)
-            if type(lib) == 'string' then
-                local value = _G[lib]
-                if not value then -- lazy require!
-                    value = require (lib)
-                    -- and use the module part of package for the key
-                    lib = lib:match '[%w_]+$'
-                end
-                lib = {[lib]=value}
-            end
-            libs[i] = lib
-        end
-    end
-    return update(t,table.unpack(libs))
-end
+  local other
+  -- explicit table, or current environment
+  t = t or _ENV or getfenv(2)
+  local libs = {}
+  if select('#',...)==0 then 
+    libs[1] = ml
+  else
+    for i = 1,select('#',...) do
+      local lib = select(i,...)
+      if type(lib) == 'string' then
+        local value = _G[lib]
+        if not value then -- lazy require!
+          value = require (lib)
+          lib = lib:match '[%w_]+$' end
+        lib = {[lib]=value} end
+      libs[i] = lib 
+    end 
+  end
+  return update(t,table.unpack(libs)) end
 ```
 
 - class
@@ -297,7 +291,7 @@ function Lib.class(base)
   klass.__index = klass
   klass._class = klass
   klass.classof = function(obj)
-   local m = getmetatable(obj) -- an object created by class() ?
+   local m = getmetatable(obj) -- object made by class() ?
    if not m or not m._class then return false end
    while m do -- follow the inheritance chain --
     if m == klass then return true end
@@ -310,7 +304,7 @@ function Lib.class(base)
     local obj = setmetatable({},klass)
     if rawget(klass,'_init') then
       klass.super = base_ctor
-      local res = klass._init(obj,...) -- call our constructor
+      local res = klass._init(obj,...) -- call constructor
       if res then -- which can return a new self..
        obj = setmetatable(res,klass)
       end

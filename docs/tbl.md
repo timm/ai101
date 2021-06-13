@@ -83,7 +83,7 @@ function Tbl:newCols(t,  what,new,all,w,x)
   return all end
 ```
 
-Sort rows via domination.
+Sort tables via  domination over their median values.
 
 ```lua
 function Tbl:__lt(other)

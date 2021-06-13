@@ -87,8 +87,7 @@ Sort rows via domination.
 
 ```lua
 function Tbl:__lt(other)
-  return Row(self, self:mid()) < Row(self,other:mid())
-end
+  return Row(self, self:mid()) < Row(self,other:mid()) end
 ```
 
 Return the mid values of some columns

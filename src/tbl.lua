@@ -67,8 +67,7 @@ function Tbl:newCols(t,  what,new,all,w,x)
 
 -- Sort rows via domination.
 function Tbl:__lt(other)
-  return Row(self, self:mid()) < Row(self,other:mid())
-end
+  return Row(self, self:mid()) < Row(self,other:mid()) end
 
 -- Return the mid values of some columns
 function Tbl:goals() 

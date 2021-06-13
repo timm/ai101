@@ -15,9 +15,9 @@ function Num:_init(at,txt)
   self._all = {}
 end
 
-function Num:add1(x,_) 
+function Num:add1(x,_,       d) 
   self._all[1+#self._all] = x
-  local d = x - self.mu
+  d = x - self.mu
   self.mu = self.mu + d/self.n
   self.m2 = self.m2 + d*(x - self.mu)
   if x > self.hi then self.hi = x end
@@ -39,9 +39,8 @@ function Num:spread(x) return self.sd end
 -- Build `xy` pairs from me and other,
 -- cut the numerics, combing splits when the combination
 -- has similar class distributions to the parts.
-function Num:discretize(other,counts,the)
+function Num:discretize(other,counts,the,      xy,sd,bins)
   -- initial a list of pairs
-  local xy,sd,bins
   xy={}
   sd = (self.sd*self.n + other.sd*self.n) / (self.n+other.n)
   for _,x in pairs(self._all)  do xy[#xy+1] = {x,true} end

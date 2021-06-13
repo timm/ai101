@@ -7,8 +7,8 @@ local r = require
 local Lib,Thing,Tbl = r("lib"),r("thing"),r("tbl")
 local  div,rdiv
 
-function div(rows,t,the,cols)
-  local zero,one,two,c,a,b,mid,left,right
+function div(rows,t,the,cols,    
+             zero,one,two,c,a,b,mid,left,right)
   zero = Lib.any(rows)
   one  = t:faraway(zero, the, cols, rows)
   two  = t:faraway(one,  the, cols, rows)
@@ -26,8 +26,8 @@ function div(rows,t,the,cols)
     else right[#right+1] = row end end
   return left,right end
 
-function rdiv(rows,lvl,t,the,all,cols,enough)
-  local pre, left,right
+function rdiv(rows,lvl,t,the,all,cols,enough,
+              pre, left,right)
   if   the.loud 
   then pre="|.. ";print(pre:rep(lvl)..tostring(#rows)) 
   end
@@ -37,8 +37,8 @@ function rdiv(rows,lvl,t,the,all,cols,enough)
        rdiv(left, lvl+1,t,the,all,cols,enough) 
        rdiv(right,lvl+1,t,the,all,cols,enough) end  end 
 
-return function (t,the,cols)
-  local all = {}
+return function (t,the,cols,      all)
+  all={}
   rdiv(t.rows,0,t,the,all,cols or t.x,(#t.rows)^the.enough)
   table.sort(all)
   return all end

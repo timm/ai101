@@ -6,7 +6,7 @@ package.path = '../src/?.lua;' .. package.path
 local Lib=require("lib")
 local o,isa,rand,fmt = Lib.o, Lib.isa, Lib.rand,Lib.fmt
 local rand,seed,round = Lib.rand, Lib.seed, Lib.round
-local csv = Lib.csv
+local map,csv = Lib.map, Lib.csv
 
 do 
   local x= {10,20,{30,{40,50}}}
@@ -34,7 +34,13 @@ do
       assert(type(row[2])=="number","coercion") end end end 
 
 do
-  print(fmt("%s %5.2f",1,2))
+  assert("1  2.00" == fmt("%s %5.2f",1,2))
+  local a = {}
+  for i=1,15 do a[#a+1]=i end
+  local n=0
+  for _,b in pairs(Lib.powerset(a)) do 
+    n=n+1 end
+  print(n)
 end
 
 Lib.rogues()

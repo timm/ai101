@@ -43,7 +43,7 @@ function Num:discretize(other,counts,the,      xy,sd,bins)
   -- initial a list of pairs
   xy={}
   sd = (self.sd*self.n + other.sd*self.n) / (self.n+other.n)
-  for _,x in pairs(self._all)  do xy[#xy+1] = {x,true} end
+  for _,x in pairs(self._all)  do xy[#xy+1] = {x,true}  end
   for _,x in pairs(other._all) do xy[#xy+1] = {x,false} end
   -- split the list
   bins= Bin.div(xy, sd*the.cohen, (#xy)^the.enough)

@@ -13,7 +13,6 @@ function discretize(lefts,rights,the,     counts,right)
     right = rights.x[n]
     left:discretize(right,counts,the)
   end
-  for _,counts1 in pairs(counts) do table.sort(counts1) end
   return counts
 end
 
@@ -29,11 +28,11 @@ function rdiv(rows,lvl,t,the,leafs,cols,todo,enough,
   else 
     left,right= t:div2(the,cols,rows)
     if     todo==3 
-    then   rdiv(left, lvl+1,t,the,leafs,cols,1,enough) 
-           rdiv(right,lvl+1,t,the,leafs,cols,2,enough) 
+    then   rdiv(left,  lvl+1,t,the,leafs,cols,1,enough) 
+           rdiv(right, lvl+1,t,the,leafs,cols,2,enough) 
     else 
       if   todo==1
-      then rdiv(left, lvl+1,t,the,leafs,cols,todo,enough) 
+      then rdiv(left,  lvl+1,t,the,leafs,cols,todo,enough) 
       else rdiv(right, lvl+1,t,the,leafs,cols,todo,enough) 
 end end end end
 
@@ -44,5 +43,4 @@ return function (t,the,cols,      leafs)
   rdiv(t.rows,0,t,the,leafs,
       cols or t.x,3,
       (#t.rows)^the.enough)
-  table.sort(leafs)
-  return leafs end
+  return discretize(leafs[1], leafs[2],the) end

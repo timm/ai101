@@ -18,9 +18,9 @@ Lib.e = math.exp(1)
 Lib.pi = math.pi
 
 -- Round
-function Lib.round(num, numDecimalPlaces)
-  local mult = 10^(numDecimalPlaces or 0)
-   return math.floor(num * mult + 0.5) / mult end
+function Lib.round(num, numDecimalPlaces,      mult)
+  mult = 10^(numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult end
 
 function Lib.rs(t,r)
   return Lib.map(t, function (z) return Lib.round(z,r or 2) end) end
@@ -40,7 +40,7 @@ function Lib.cat(t,sep) return table.concat(t,sep or ", ") end
 function Lib.o(t,pre) print(Lib.oo(t,pre))  end
 
 -- Convert a table to a print string.
-function Lib.oo(t,pre,     seen,s,sep,keys, nums)
+function Lib.oo(t,pre,     seen,s,sep,keys, nums,v)
   seen = seen or {}
   if seen[t] then return "..." end
   pre=pre or ""
@@ -54,7 +54,7 @@ function Lib.oo(t,pre,     seen,s,sep,keys, nums)
         keys[#keys+1] = k  end end end 
   --table.sort(keys)
   for _, k in pairs(keys) do
-    local v = t[k]
+    v = t[k]
     if      type(v) == 'table'    then v= Lib.oo(v,pre,seen) 
     elseif  type(v) == 'function' then v= "function"
     else v= tostring(v) end
@@ -90,17 +90,17 @@ do
   local mult  = 16807.0
   function Lib.rand()  seed= (mult*seed)%mod; return seed/mod end 
   function Lib.seed(n) seed= n and n or seed0 end 
-  function Lib.any(a) return a[1 + Lib.rand() * #a // 1] end
+  function Lib.any(a)  return a[1 + Lib.rand() * #a // 1] end
 end
 
 -- ## Table functions
-function Lib.powerset(s)
-  local t = {{}}
+-- Subsets
+function Lib.powerset(s,       t)
+  t = {{}}
   for i = 1, #s do
     for j = 1, #t do
       t[#t+1] = {s[i],table.unpack(t[j])} end end
-   return t
-end
+   return t end
 
 -- Slice a table
 function Lib.slice(t, lo, hi, step,   out)
@@ -151,8 +151,7 @@ function Lib.rogues(    skip)
 function Lib.coerce(x)
   if  x=="true"  then return true  end
   if  x=="false" then return false  end
-  return tonumber(x) or x
-end
+  return tonumber(x) or x end
 
 -- ## Command-line flags
 -- Update `t` with any relevant flags from the command-line.
@@ -187,12 +186,8 @@ function Lib.cli(t,     i,key,now)
 -- the values from the first table will be overwritten.
 local function update (t,...)
     for i = 1,select('#',...) do
-        for k,v in pairs(select(i,...)) do
-            t[k] = v
-        end
-    end
-    return t
-end
+        for k,v in pairs(select(i,...)) do t[k] = v end end
+    return t end
 
 -- Bring modules or tables into 't`.
 -- If `lib` is a string, then it becomes the result of `require`
@@ -220,8 +215,6 @@ local function import(t,...)
   return update(t,table.unpack(libs)) end
 
 --- class
--- @param base optional base class
--- @return the callable metatable representing the class
 function Lib.class(base)
   local klass, base_ctor = {}
   if base then
@@ -252,11 +245,9 @@ function Lib.class(base)
     elseif base_ctor then -- call base ctor automatically
       base_ctor(obj,...)
     end
-    return obj
-   end
+    return obj end
   })
-  return klass
-end
+  return klass end
 
 -- ## Exports 
 return Lib

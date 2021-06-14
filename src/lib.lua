@@ -18,7 +18,6 @@ Lib.e = math.exp(1)
 Lib.pi = math.pi
 
 -- Round
-
 function Lib.round(num, numDecimalPlaces)
   local mult = 10^(numDecimalPlaces or 0)
    return math.floor(num * mult + 0.5) / mult end
@@ -28,7 +27,6 @@ function Lib.rs(t,r)
 
 -- ## Printing  
 -- String formatting
-
 function Lib.fmt (todo, ...)
   return todo:format(...) end
 
@@ -96,6 +94,14 @@ do
 end
 
 -- ## Table functions
+function Lib.powerset(s)
+  local t = {{}}
+  for i = 1, #s do
+    for j = 1, #t do
+      t[#t+1] = {s[i],table.unpack(t[j])} end end
+   return t
+end
+
 -- Slice a table
 function Lib.slice(t, lo, hi, step,   out)
   out={}
@@ -127,7 +133,7 @@ function Lib.same(x) return x end
 -- Report rogue locals
 function Lib.rogues(    skip)
   skip = {
-    jit=true, utf8=true, math=true, package=true, table=true,
+    jit        =true, utf8=true, math=true, package=true, table=true,
     coroutine=true, bit=true, os=true, io=true, bit32=true,
     string=true, arg=true, debug=true, _VERSION=true, _G=true,
     getmetatable=true, print=true, rawequal=true, dofile=true,

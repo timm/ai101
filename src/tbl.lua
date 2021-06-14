@@ -19,7 +19,8 @@
 local r = require 
 local Lib,Thing,Row = r("lib"),r("thing"),r("row")
 local Skip,Num,Sym  = r("skip"),r("num"),r("sym")
-local map,slice,sorted=Lib.map,Lib.slice, Lib.sorted
+local map,slice,sorted = Lib.map,Lib.slice, Lib.sorted
+local push = table.insert
 
 -- Create
 local Tbl = Lib.class()
@@ -51,18 +52,14 @@ function Tbl:newRow(t)
 -- Initialize the column data.
 function Tbl:newCols(t,  what,new,all,w,x) 
   self.header = t
-  all={}
+  all =  {}
   for at,s in pairs(t) do
     w= s:find("?") and Skip or (s:match("^%u") and Num or Sym)
     x= w(at,s)
     all[#all+1] = x
     if not s:find("?") then -- only if not skipping
-      if   s:find("!") 
-      then self.klass = x 
-      end 
-      if   s:match("[%-%+!]") 
-      then self.y[#self.y+1] = x 
-      else self.x[#self.x+1] = x end end end 
+      push(s:match("[%-%+!]") and self.y or self.x, x) 
+      if s:find("!") then self.klass=x end end end 
   return all end
 
 -- Sort tables via  domination over their median values.
@@ -70,10 +67,9 @@ function Tbl:__lt(other)
   return Row(self, self:mid()) < Row(self,other:mid()) end
 
 -- Return the mid values of some columns
-function Tbl:goals() 
-  return self:mid(self.y) end
-function Tbl:mid(cols) 
-  return map(cols or self.cols, function (c) return c:mid() end) end
+function Tbl:goals()   return self:mid(self.y) end
+function Tbl:mid(cols) return map(cols or self.cols, 
+                        function (c) return c:mid() end) end
 
 -- Sort neighbors by distance
 function Tbl:neighbors(r1,the,cols,rows,       a)

@@ -6,7 +6,6 @@ local r = require
 local Lib,Thing,Tbl = r("lib"),r("thing"),r("tbl")
 local rdiv
 
-
 -- If there are two few rows, then make a new leaf cluster.
 -- Else, divide the data into two and recurse on each half.
 function rdiv(rows,lvl,t,the,leafs,cols,enough,

@@ -10,7 +10,7 @@ local function _t1(data)
   local t=Tbl()
   local the=Lib.the()
   for row in Lib.csv(data or the.data or 'data/auto93.csv') do t:add(row) end
-  for _,t1 in  pairs(rdiv(t,the,t.y)) do
+  for _,t1 in  pairs(rdiv(t,the,t.x)) do
     print(Lib.oo(Lib.rs(t1:goals())), "found")
   end
   print("----")
